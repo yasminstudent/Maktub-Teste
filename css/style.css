@@ -1,0 +1,90 @@
+/* Padronização
+-----------------------------*/
+.bg-blue-gradient {
+  background: linear-gradient(270deg,
+      #1cacc6 33.33%,
+      rgba(51, 149, 239, 0.545455) 53.13%,
+      rgba(68, 121, 203, 0.301741) 67.19%,
+      rgba(255, 255, 255, 0) 82.81%),
+    #296dd5;
+}
+
+.bg-blue-dark {
+  background-color: #296dd5;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-gray {
+  color: #595959;
+}
+
+.text-blue {
+  color: #4384fc;
+}
+
+.title {
+  font-family: "Work Sans", sans-serif;
+  font-weight: bold;
+}
+
+.text {
+  font-size: 18px;
+}
+
+.w-85 {
+  width: 85%;
+}
+
+/* Logotipo
+-----------------------------*/
+.logo {
+  background-image: url("../images/logo.png");
+  width: 75px;
+  height: 75px;
+  background-color: white;
+  background-size: cover;
+}
+
+/* Slide
+-----------------------------*/
+#home {
+  height: 410px;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+  width: 5%;
+}
+
+#img-slide1 {
+  width: 610px;
+  height: 409px;
+}
+
+#img-slide2 {
+  width: 604px;
+  height: 413px;
+}
+
+/* Conteúdos
+-----------------------------*/
+#rectangle-on-top {
+  width: 70px;
+  height: 100px;
+}
+
+#home-sobre,
+#home-sobre img {
+  width: 512px;
+  height: 316px;
+}
+
+.image-between-sessions {
+  background-image: url("../images/capa.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  height: 300px;
+}
