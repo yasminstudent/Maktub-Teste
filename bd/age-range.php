@@ -31,7 +31,7 @@
         $plano = mysqli_fetch_array($plano);
 
         $rsPlano = array(
-          "id" => $plano['id'],
+          "id" => $dados['id'],
           "operadora" => $plano['operadora'],
           "reembolso" => $plano['reembolso'],
           "modalidade" => $modalidade['nome'],

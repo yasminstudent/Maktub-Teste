@@ -17,13 +17,13 @@
           <div class="collapse navbar-collapse" id="navegacao">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a href="" class="nav-link">Home</a>
+                <a href="home.php" class="nav-link">Home</a>
               </li>
               <li class="nav-item">
                 <a href="" class="nav-link">Sobre Nós</a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">Contato</a>
+                <a href="contato.php" class="nav-link">Contato</a>
               </li>
               <li class="nav-item">
                 <a href="" class="nav-link">Suporte</a>
