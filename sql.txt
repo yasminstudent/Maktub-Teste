@@ -68,3 +68,10 @@ CREATE TABLE `dbmaktub`.`tblcliente_plano` (
 alter table tblcliente_plano add foreign key (idcliente) references tblcliente (id);
 alter table tblcliente_plano add foreign key (idplano_modalidade_faixa) references tblplano_modalidade_faixa (id);
 
+CREATE TABLE `dbmaktub`.`tblcontato` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(3000) NOT NULL,
+  `telefone` VARCHAR(15) NOT NULL,
+  `email` TEXT NULL,
+  `mensagem` TEXT(5000) NOT NULL,
+  PRIMARY KEY (`id`));

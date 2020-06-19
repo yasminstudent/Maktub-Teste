@@ -52,29 +52,34 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <form method="POST" class="w-50 ml-auto mr-auto mt-5 mb-5"> 
+            <form method="POST" action="bd/insert-contato.php" 
+              class="w-50 ml-auto mr-auto mt-5 mb-5"> 
                 <div class="form-group">
                   <label for="input1">Nome Completo*</label>
-                  <input type="text" required  class="form-control" id="input1">
+                  <input name="txtnome" type="text" required  
+                  class="form-control" id="input1">
                 </div>
 
                 <div class="form-group">
                   <label for="input2">Telefone*</label>
-                  <input type="text" required  class="form-control" id="input2">
+                  <input name="txttelefone" type="text" required 
+                  class="form-control" id="input2">
                 </div>
 
                 <div class="form-group">
                   <label for="input3">Email</label>
-                  <input type="email" class="form-control" id="input3">
+                  <input type="email" name="txtemail" class="form-control" 
+                    id="input3">
                 </div>
                 
                 <div class="form-group">
                   <label for="textarea">Mensagem</label>
-                  <textarea class="form-control" id="textarea" rows="4" required>
+                  <textarea class="form-control" id="textarea" name="txtmensagem"
+                  rows="4" required>
                   </textarea>
                 </div>
 
-                <input type="submit" value="ENVIAR" 
+                <input type="submit" value="ENVIAR" name="btnenviar"
                   class="btn botao-green btn-big text-white"/>
               </form>
           </div>

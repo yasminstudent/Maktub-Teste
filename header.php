@@ -26,7 +26,7 @@
                 <a href="contato.php" class="nav-link">Contato</a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">Suporte</a>
+                <a href="suporte.php" class="nav-link">Suporte</a>
               </li>
             </ul>
           </div>
