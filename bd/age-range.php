@@ -6,6 +6,15 @@
     //Importe do arquivo de conexão
     require_once('connection.php');
     $connection = connectionMysql();
+
+    if(!isset($_SESSION)){
+      session_start();
+    }
+
+    if(!$_POST['rdorange']){
+      $_SESSION['radio_vazio'] = "Sem faixa";
+      header('location:../home.php');
+    }
         
     //Select para o banco
     $idade = $_POST['rdorange'];
@@ -46,7 +55,6 @@
         }
       }
 
-      session_start();
       $_SESSION['rsPlanos'] = $rsPlanos;
 
       //print_r($rsPlanos[1]['operadora']);

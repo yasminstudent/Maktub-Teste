@@ -51,4 +51,20 @@ insert into tblplano_modalidade_faixa (idplano, idmodalidade, idfaixa, preço) v
 
 insert into tblplano_modalidade_faixa (idplano, idmodalidade, idfaixa, preço) values (4, 2, 5, 250.00), (4, 2, 6, 270.00), (4, 2, 7, 290.00), (4, 2, 8, 310.00), (4, 2, 9, 340.00), (4, 2, 10, 370.00);
 
+CREATE TABLE `dbmaktub`.`tblcliente` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(3000) NOT NULL,
+  `tipo_cnpj` VARCHAR(1000) NOT NULL,
+  `tipo_contato` VARCHAR(45) NOT NULL,
+  `telefone` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `dbmaktub`.`tblcliente_plano` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `idcliente` INT NOT NULL,
+  `idplano_modalidade_faixa` INT NOT NULL,
+  PRIMARY KEY (`id`));
+
+alter table tblcliente_plano add foreign key (idcliente) references tblcliente (id);
+alter table tblcliente_plano add foreign key (idplano_modalidade_faixa) references tblplano_modalidade_faixa (id);
 

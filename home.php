@@ -11,6 +11,9 @@
     filtro por preço
     filtro por modalidade
     mascara
+    analisar home e resolver bugs
+      (importar arquivo, criar uma função que chama outra)
+    definir limite de caracteres nas textareas
   */
 
   if(!isset($_SESSION)){
@@ -21,6 +24,8 @@
   if(isset($_SESSION['rsPlanos'])){
     $rsPlanos = $_SESSION['rsPlanos'];
   }
+
+  
   
   require_once('bd/connection.php');
   $connection = connectionMysql();
@@ -40,18 +45,39 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno&family=Work+Sans:wght@300&display=swap" rel="stylesheet">
-    <link href="./css/style.css" type="text/css" rel="stylesheet">
+    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
 
     <style>
       .background-gray {
           background-image: url("images/back-gray.png");
       }
+      .botao-green {
+        background-color: #16C772;
+        border-top-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+      }
+
+      .botao-green:hover {
+        background-color: #14b367;
+      }
+      .btn-big{
+        width: 120px;
+        border-radius: 20px;
+      }
     </style>
     
+    <?php 
+      if (isset($_SESSION['radio_vazio'])){
+            echo "<script>  window.alert( 'Selecione a sua faixa etária') </script>";
+            unset($_SESSION['radio_vazio']);
+      }
+    ?>
       
   </head>
+
   <body>
     
     <?php
@@ -197,7 +223,7 @@
 
             <div class="d-flex justify-content-center mt-3">
               <input type="submit" value="Buscar" name="btnrange" 
-                class="btn btn-primary mb-4" />
+                class="btn botao-green text-white mb-4 btn-big" />
             </div>
 
           </form>
@@ -246,7 +272,7 @@
 
                         ?>
                         <button data-toggle="modal" data-target="#modalForm"
-                          type="button" class="btn btn-primary radius" 
+                          type="button" class="botao-green btn text-white" 
                           data-whatever=<?=$dataWhatever?>
                           > 
                           escolher
@@ -273,7 +299,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form method="POST" class="modalfrm" name="frmplano" action="bd/insert.php">
+                        <form method="POST" class="modalfrm" name="frmplano">
 
                           <div class="form-group">
                             <label for="formGroupInput">
@@ -289,7 +315,7 @@
 
                           <div class="form-group">
                             <label for="formGroupInput2">
-                              Qual é o tipo de CNPJ?
+                              Qual é o tipo de CNPJ?*
                             </label>
                             <select class="form-control"
                               name="sltcnpj"  
@@ -306,7 +332,7 @@
 
                           <div class="form-group">
                             <label for="formGroupInput3">
-                              Como você quer ser contatado?
+                              Como você quer ser contatado?*
                             </label>
                             <select class="form-control"
                               name="sltcontato" 
@@ -323,7 +349,7 @@
                               Número de telefone/celular*
                             </label>
                             <input type="text"
-                              name="txttel" 
+                              name="txttelefone" 
                               class="form-control" 
                               id="formGroupInput4" 
                               placeholder="Tel/Cel" 
@@ -331,7 +357,8 @@
                           </div>
 
                           <div class="d-flex justify-content-end w-100">
-                            <button type="submit" class="btn btn-primary">
+                            <button name="btnescolha"
+                              type="submit" class="btn btn-primary">
                               ENVIAR
                             </button>
                           </div>
@@ -374,7 +401,7 @@
     <script>
 
       function action(id){
-        $(".modalfrm").attr("action","bd/insert.php?" + id);
+        $(".modalfrm").attr("action","bd/insert-escolha.php?id=" + id);
       }
 
       $('#modalForm').on('show.bs.modal', function (event) {
@@ -387,7 +414,6 @@
 
         var modal = $(this)
         modal.find('.modal-title').text('Você escolheu o plano ' + operadora)
-        //modal.find('.modal-body form').action('bd/insert.php?' + id)
         action(id);
       })
       
