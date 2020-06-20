@@ -187,28 +187,23 @@
           <form method="POST" name="frmsimulation" action="bd/age-range.php" >
 
             <?php
-              $sql = "select * from tblfaixa";
-              $select = mysqli_query($connection, $sql);
-
-              $rsFaixa = [];
-
-              foreach($select as $faixa){
-
-                if($rsFaixa){
-                  $rsFaixa = [...$rsFaixa, $faixa];
-                }
-                else{
-                  $rsFaixa = [$faixa];
-                }
-
-              }
-
-              $size = count($rsFaixa);
-              $cont = 0;
-
-              while($cont < $size){
-                $id = $rsFaixa[$cont]['id'];
-                $faixa = $rsFaixa[$cont]['faixa']
+              $faixas = [ 
+                array("faixa" => "0-18","percentual" => 5),  
+                array("faixa" => "19-23","percentual" => 15),
+                array("faixa" => "24-28","percentual" => 25),
+                array("faixa" => "29-33","percentual" => 35),
+                array("faixa" => "34-38","percentual" => 45),
+                array("faixa" => "39-43","percentual" => 55),
+                array("faixa" => "44-48","percentual" => 65),
+                array("faixa" => "49-53","percentual" => 75),
+                array("faixa" => "54-58","percentual" => 85),
+                array("faixa" => "59+","percentual" => 95),
+              ];
+               
+              
+               for($i = 0; $i < count($faixas); $i++){
+                 $id = $faixas[$i]["percentual"];
+                 $faixa = $faixas[$i]["faixa"];
             ?>
               <div class="form-check form-check-inline ml-2 mr-2 mt-3">
                 <input class="form-check-input" type="radio" name="rdorange" 
@@ -219,7 +214,6 @@
                 </label>
               </div>
             <?php
-                $cont++;
               }
             ?>
             <br>
@@ -248,8 +242,7 @@
                     $operadora = $rsPlanos[$cont]['operadora'];
                     $modalidade = $rsPlanos[$cont]['modalidade'];
                     $preço = $rsPlanos[$cont]['preço'];
-                    $reembolso = ($rsPlanos[$cont]['reembolso'] / 100) 
-                    * $preço ;
+                    $reembolso = $rsPlanos[$cont]['reembolso'];
             ?>
             <div class="col-md-4">
                 <div class="card w-85 ml-auto mr-auto mb-2 border border-primary">

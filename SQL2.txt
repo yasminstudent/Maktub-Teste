@@ -1,0 +1,31 @@
+CREATE SCHEMA `dbmaktub_teste` ;
+
+CREATE TABLE `dbmaktub_teste`.`tblplano` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `operadora` VARCHAR(3000) NOT NULL,
+  `reembolso` INT NOT NULL,
+  `foto` VARCHAR(3000) NULL,
+  `preco_base` FLOAT NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `dbmaktub_teste`.`tblmodalidade` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(3000) NOT NULL,
+  `percentual` INT NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `dbmaktub_teste`.`tblplano_modalidade` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `idplano` INT NOT NULL,
+  `idmodalidade` INT NOT NULL,
+  PRIMARY KEY (`id`));
+
+insert into tblplano (operadora, reembolso, preco_base) values ('Bradesco Saúde', 15, 100), ('Notre Dame Intermédica', 20, 120), ('Unimed', 17, 110), ('Amil', 25, 130), ('Sul América', 15, 115);
+
+insert into tblmodalidade (nome, percentual) values ('Enfermaria', 10), ('Apartamento', 20);
+
+alter table tblplano_modalidade add foreign key (idplano) references tblplano (id);
+
+alter table tblplano_modalidade add foreign key (idmodalidade) references tblmodalidade (id);
+
+insert into tblplano_modalidade (idplano, idmodalidade) values(1, 1), (1, 2), (2, 1), (2, 2), (3, 1), (4, 2), (5, 1);

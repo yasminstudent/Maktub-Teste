@@ -1,67 +1,64 @@
-<?php
-  //Verificando se houve a ação no formulário  
-  if(isset($_POST['btnrange']))
+<?php  
+  if(isset($_POST['btnrange'])) //-----------------IF VERIFICANDO FORMULÁRIO
   {
   
-    //Importe do arquivo de conexão
+    //IMPORTE DO ARQUIVO DE CONEXÃO
     require_once('connection.php');
     $connection = connectionMysql();
 
-    if(!isset($_SESSION)){
-      session_start();
-    }
+    //SELECT COM OS DADOS DO PLANO
+    $sql = 
+    "SELECT tblplano.*, tblmodalidade.nome, tblmodalidade.percentual 
+    FROM tblplano_modalidade 
+    INNER JOIN tblplano ON tblplano.id = tblplano_modalidade.idplano 
+    INNER JOIN tblmodalidade ON tblmodalidade.id = tblplano_modalidade.idmodalidade;";
 
-    if(!$_POST['rdorange']){
-      $_SESSION['radio_vazio'] = "Sem faixa";
-      header('location:../home.php');
-    }
-        
-    //Select para o banco
-    $idade = $_POST['rdorange'];
-    $sql = "select * from tblplano_modalidade_faixa where idfaixa = " . $idade;
+    //RESGATA O RÁDIO
+    $percentual_faixa = $_POST['rdorange'];
+
     $select = mysqli_query($connection, $sql);
 
-    if($select){
+    if($select){//-----------------IF VERIFICANDO SELECT
 
-      $rsPlanos= [];
+      if(!isset($_SESSION)){
+        session_start();
+      }
 
-      foreach($select as $dados){
+      foreach($select as $dados){ //-----------------FOREACH
 
-        $sql = "select nome from tblmodalidade where id =" 
-        . $dados['idmodalidade'];
+        $percentual_modalidade = $dados['percentual'];
 
-        $modalidade = mysqli_query($connection, $sql);
-        $modalidade = mysqli_fetch_array($modalidade);
+        $preco = ((( $percentual_faixa +  $percentual_modalidade) /100)
+        * $dados['preco_base']) + $dados['preco_base']; 
 
-        $sql = "select * from tblplano where id = "
-        . $dados['idplano'];
-
-        $plano = mysqli_query($connection, $sql);
-        $plano = mysqli_fetch_array($plano);
-
+        $reembolso = ($dados['reembolso'] / 100) * $preco;
+        
         $rsPlano = array(
           "id" => $dados['id'],
-          "operadora" => $plano['operadora'],
-          "reembolso" => $plano['reembolso'],
-          "modalidade" => $modalidade['nome'],
-          "preço" => $dados['preço']
+          "operadora" => $dados['operadora'],
+          "reembolso" => $reembolso,
+          "modalidade" => $dados['nome'],
+          "preço" => $preco
         );
-
+  
         if($rsPlanos){
           $rsPlanos = [...$rsPlanos, $rsPlano];
         }
         else{
           $rsPlanos = [$rsPlano];
         }
-      }
-
+        
+      }//-----------------FOREACH
+      
       $_SESSION['rsPlanos'] = $rsPlanos;
 
       header('location:../home.php?modo=buscarPlanos');
-    }
+   
+    
+    }//-----------------IF VERIFICANDO SELECT
     else{
-        echo("Erro ao executar o script");
+      echo("Erro ao executar o script");
     } 
-  }
-
+    
+  }//-----------------IF VERIFICANDO FORMULÁRIO
 ?>
