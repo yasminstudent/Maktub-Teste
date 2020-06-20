@@ -20,7 +20,7 @@
                 <a href="home.php" class="nav-link">Home</a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">Sobre Nós</a>
+                <a href="sobre.php" class="nav-link">Sobre Nós</a>
               </li>
               <li class="nav-item">
                 <a href="contato.php" class="nav-link">Contato</a>

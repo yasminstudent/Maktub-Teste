@@ -75,3 +75,27 @@ CREATE TABLE `dbmaktub`.`tblcontato` (
   `email` TEXT NULL,
   `mensagem` TEXT(5000) NOT NULL,
   PRIMARY KEY (`id`));
+
+ALTER TABLE `dbmaktub`.`tblplano` 
+ADD COLUMN `foto` VARCHAR(3000) NULL AFTER `reembolso`;
+
+update tblplano set foto = 'bradesco.png' where id =1;
+update tblplano set foto = 'notredame.jpg' where id = 2;
+update tblplano set foto = 'unimed.png' where id = 3;
+update tblplano set foto = 'sul_america.png' where id = 4;
+update tblplano set foto = 'amil-one.jpg' where id = 5;
+update tblplano set foto = 'amil.png' where id = 6;
+
+CREATE TABLE `dbmaktub`.`tblsuporte` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `idtopico` INT NOT NULL,
+  `pergunta` VARCHAR(3000) NOT NULL,
+  `resposta` VARCHAR(3000) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `dbmaktub`.`tbltopico` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `topico` VARCHAR(3000) NOT NULL,
+  PRIMARY KEY (`id`));
+
+alter table tblsuporte add foreign key (idtopico) references tbltopico (id);

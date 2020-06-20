@@ -57,8 +57,7 @@
 
       $_SESSION['rsPlanos'] = $rsPlanos;
 
-      //print_r($rsPlanos[1]['operadora']);
-      header('location:../home.php');
+      header('location:../home.php?modo=buscarPlanos');
     }
     else{
         echo("Erro ao executar o script");

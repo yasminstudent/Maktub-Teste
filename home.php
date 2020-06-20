@@ -1,19 +1,17 @@
 <?php 
-
   /*
+    Retornar mensagem ao usuário
     Revisar nomenclatura
-    Revisar identação
     Add comentários
     Criar tabela de tipo de CNPJ
+    ajustar responsivos
     Perguntar se é interior de SP 1 ou 2 
     Revisar os planos criados na tabela que junta tudo
-    Criar variáveis para usar no laço
     filtro por preço
     filtro por modalidade
+    arrumar lance do css não pegar
     mascara
-    analisar home e resolver bugs
-      (importar arquivo, criar uma função que chama outra)
-    definir limite de caracteres nas textareas
+    arrumar lance de escolher as faixas
   */
 
   if(!isset($_SESSION)){
@@ -25,8 +23,6 @@
     $rsPlanos = $_SESSION['rsPlanos'];
   }
 
-  
-  
   require_once('bd/connection.php');
   $connection = connectionMysql();
 
@@ -41,13 +37,18 @@
     </title>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" 
+      content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno&family=Work+Sans:wght@300&display=swap" rel="stylesheet">
+    <link 
+      rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" 
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" 
+      crossorigin="anonymous">
     
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
+      crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="css/style.css">
 
     <style>
@@ -68,7 +69,7 @@
         border-radius: 20px;
       }
     </style>
-    
+
     <?php 
       if (isset($_SESSION['radio_vazio'])){
             echo "<script>  window.alert( 'Selecione a sua faixa etária') </script>";
@@ -147,7 +148,7 @@
     <section>
       <div class="container pb-3">
         <div id="rectangle-on-top" class="ml-auto mr-auto bg-blue-dark"></div>
-        <h1 class="text-capitalize text-blue mt-3 title display-4">
+        <h1 class="text-capitalize text-blue mt-3 display-4">
           Conheça a nossa empresa
         </h1>
         <div class="row">
@@ -173,7 +174,7 @@
     <!-- <section class="image-between-sessions"></section> -->
 
     <!-- SIMULAÇÃO -->
-    <section class="bg-blue text-white">
+    <section id="form-simulacao" class="bg-blue text-white">
       <div class="container pt-4">
         <h1 class="text-capitalize text-center mb-2 display-4">
             Faça a sua simulação
@@ -206,13 +207,15 @@
               $cont = 0;
 
               while($cont < $size){
+                $id = $rsFaixa[$cont]['id'];
+                $faixa = $rsFaixa[$cont]['faixa']
             ?>
               <div class="form-check form-check-inline ml-2 mr-2 mt-3">
                 <input class="form-check-input" type="radio" name="rdorange" 
-                id=<?=$rsFaixa[$cont]['id']?> value=<?=$rsFaixa[$cont]['id']?> >
+                id=<?=$id?> value=<?=$id?> >
 
-                <label class="form-check-label" for=<?=$rsFaixa[$cont]['id']?> >
-                  <?=$rsFaixa[$cont]['faixa']?>
+                <label class="form-check-label" for=<?=$id?> >
+                  <?=$faixa?>
                 </label>
               </div>
             <?php
@@ -230,7 +233,7 @@
         </div>
       </div>
     </section>
-    <section class="pt-5">
+    <section class="pt-5" id="container-planos">
       <div class="container background-gray pb-4">
         <div class="row">
           <div class="d-flex flex-row flex-wrap">
@@ -241,36 +244,31 @@
                   $size = count($rsPlanos);
                 
                   for($cont = 0; $cont < $size; $cont++){
+                    $id = $rsPlanos[$cont]['id'];
+                    $operadora = $rsPlanos[$cont]['operadora'];
+                    $modalidade = $rsPlanos[$cont]['modalidade'];
+                    $preço = $rsPlanos[$cont]['preço'];
                     $reembolso = ($rsPlanos[$cont]['reembolso'] / 100) 
-                    * $rsPlanos[$cont]['preço'] ;
+                    * $preço ;
             ?>
             <div class="col-md-4">
                 <div class="card w-85 ml-auto mr-auto mb-2 border border-primary">
-                    <div class="card-img-plano">
-                        <img
-                            class="w-100 h-25"
-                            src="images/notredame.jpg"
-                        />
-                    </div>
                     <div class="card-body">
                         <h5 class="card-title">
-                          <?=$rsPlanos[$cont]['operadora'] ?>
+                          <?=$operadora?>
                         </h5>
                         <p class="card-text">
                           R$:<?=$reembolso?> de reemboloso
                         </p>
                         <p class="card-text">
-                          Modalidade: <?=$rsPlanos[$cont]['modalidade']?>
+                          Modalidade: <?=$modalidade?>
                         </p>
                         <p class="card-text">
-                          Preço R$:<?=$rsPlanos[$cont]['preço']?>
+                          Preço R$:<?=$preço?>
                         </p>
                         
-                        <?php
-                          $dataWhatever = $rsPlanos[$cont]['id'] . 
-                          "-" . $rsPlanos[$cont]['operadora'];
+                        <?php $dataWhatever = $id . "-" . $operadora; ?>
 
-                        ?>
                         <button data-toggle="modal" data-target="#modalForm"
                           type="button" class="botao-green btn text-white" 
                           data-whatever=<?=$dataWhatever?>
@@ -310,7 +308,8 @@
                               class="form-control" 
                               id="formGroupInput" 
                               placeholder="Nome Completo" 
-                              required>
+                              maxlength="3000"
+                              required />
                           </div>
 
                           <div class="form-group">
@@ -380,8 +379,7 @@
             <?php 
                 }
               }
-            ?>
-            
+            ?>  
           </div>
         </div>
       </div>
@@ -395,10 +393,29 @@
     
    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script 
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+      crossorigin="anonymous"></script>
+    <script 
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+      crossorigin="anonymous"></script>
+    <script 
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" 
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" 
+      crossorigin="anonymous"></script>
+   
     <script>
+      var query = location.search.slice(1);
+      
+      if(query == "modo=buscarPlanos"){
+          window.scroll(0,1000);
+      }
+ 
+      if(query == "modo=escolha"){
+          window.scroll(0,1300);
+      }
 
       function action(id){
         $(".modalfrm").attr("action","bd/insert-escolha.php?id=" + id);
@@ -416,7 +433,7 @@
         modal.find('.modal-title').text('Você escolheu o plano ' + operadora)
         action(id);
       })
-      
-    </script>         
+   </script>  
+
   </body>
 </html>

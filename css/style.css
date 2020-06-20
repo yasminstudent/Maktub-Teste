@@ -11,10 +11,16 @@
     #296dd5;
 }
 .bg-blue-dark {
-  background-color: #296dd5;
+  background-color: #296dd5 !important;
 }
 .bg-blue {
-  background-color: #19b8d4;
+  background-color: #19b8d4 !important;
+}
+.bg-blue-dark2 {
+  background-color: #3c5899 !important;
+}
+.bg-blue2 {
+  background-color: #4384fc !important;
 }
 .bg-gray {
   background-color: #e0e0e0;
@@ -32,7 +38,6 @@
 
 .title {
   font-family: "Work Sans", sans-serif;
-  font-weight: bold;
 }
 .title-size {
   font-size: 40px !important;

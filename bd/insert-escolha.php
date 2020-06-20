@@ -42,7 +42,7 @@
       if($insert){
         //CRIAR VARIÁVEL DE SESSÃO
         $_SESSION['status'] = "ok";
-        header('location:../home.php');
+        header('location:../home.php?modo=escolha');
       }
       else{
         echo $insert;
