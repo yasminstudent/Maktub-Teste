@@ -109,3 +109,26 @@ VALUES
 .');
 
 update tbltopico  set topico = "SEGURO" where id = 2;
+update tbltopico  set topico = "CONTATO" where id = 7;
+
+INSERT INTO tblsuporte (idtopico, pergunta, resposta)
+VALUES (5, 'Como requisitar o reembolso?', 'Mande um email para: maktubseguros@gmail.com ou entre em contato com o corretor'),
+(5, 'Não recebi o reembolso. Como proceder?', 'A maktub lamenta o ocorrido e pede para que o cliente entre em contato com a operadora');
+
+INSERT INTO tblsuporte (idtopico, pergunta, resposta)
+VALUES (6, 'Quais regiões vocês atendem?', 'Nós estamos em SP, MG e RJ'),
+(6, 'Contratei o serviço mas minha empresa mudou de cidade. Como proceder?', 'O plano continua disponível, no entanto pedimos que entre em contato com a maktub informando o novo endereço');
+
+INSERT INTO tblsuporte (idtopico, pergunta, resposta)
+VALUES (7, 'Como entrar em contato com a maktub?', 'Mande um email para maktubseguros@gmail.com, ligue para (11) 3619-3309 ou preencha o formulário na página contato'),
+(7, 'O que fazer quando o corretor não entrou em contato?', 'Lamentamos o ocorrido. O cliente deve entrar em contato com a maktub pelo email da empresa ou pelo formulário na página de contatos.');
+
+insert into tbltopico (topico) values ('CANCELAMENTO'), ('FUNCIONAMENTO') ;
+
+INSERT INTO tblsuporte (idtopico, pergunta, resposta)
+VALUES (8, 'Como cancelar um plano?', 'Mande um email para maktubseguros@gmail.com, ligue para (11) 3619-3309 ou entre em contato com o corretor.'),
+(8,'Como cancelar o pedido de cancelamento', 'Mande um email para maktubseguros@gmail.com, ligue para (11) 3619-3309 ou entre em contato com o corretor.');
+
+INSERT INTO tblsuporte (idtopico, pergunta, resposta)
+VALUES (9, 'Como faço para contratar um plano?', 'Faça uma simulação na tela home e escolha um plano.'),
+(9,'O que devo fazer após a simulação?', 'O cliente deve aguardar o contato com o corretor.');

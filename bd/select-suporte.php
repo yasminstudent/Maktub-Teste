@@ -53,11 +53,11 @@
     //VERIFICA SE O ARRAY COM AS PERGUNTAS NÃO ESTÁ VAZIO
     if($rsDuvidas != []){
       $_SESSION['rsDuvidas'] = $rsDuvidas;
-      header('location:../suporte.php?modo=buscar');
+      header('location:../suporte.php?');
     }
     else{
       $_SESSION['status'] = 400;
-      header('location:../suporte.php?modo=buscar');
+      header('location:../suporte.php?');
     }
 
  
