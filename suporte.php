@@ -105,6 +105,23 @@
                 }
               };
             ?>
+            <?php
+              if(isset($_SESSION['status'])) {
+            ?>
+              <div>
+                <h2>Ops! Nenhum resultado foi encontrado </h2>
+                <p>
+                  Tente usar palavras chaves: PAGAMENTO, SEGURO, REEMBOLSO, 
+                  MODALIDADE, OPERADORA, REGIÃO, CONTATO, CANCELAMENTO, 
+                  FUNCIONAMENTO ou CONTATO.
+                </p>
+               
+                <p>Ou preencha o formulário na página de contato</p>
+
+              </div>
+            <?php
+              }
+            ?>
           </div><!-- CONTAINER PERGUNTAS -->
         </div>
       </div> <!-- CONTAINER -->

@@ -1,17 +1,14 @@
 <?php 
   /*
-    2º INSERIR DADOS NA TBLSUPORTE
-    3º FAZER O LANCE DA HOME
-    (1h30)
-
     4º MÁSCARAS/VALIDAÇÕES -> 1T (COPIAR E COLAR)
+
+    Arrumar layout suporte e home
+
     5º LINK CSS (FAZER PEGAR) -> 2T
     6º AJUSTAR RESPONSIVO -> 2T (SÓ MUDANÇAS URGENTES)
     (1h)
 
     7º CRIAR TABELA DE CNPJ -> 1 TEMPO
-    8º FILTROS (PREÇO E MODALIDADE) -> 1,5 TEMPO
-    (45min)
 
     9º TESTAR IMPORTE DO BD E FAZER UM  README
     10º PEQUENOS AJUSTES DO TOAST
@@ -20,7 +17,6 @@
   if(!isset($_SESSION)){
     session_start();
   }
-
 
   if(isset($_SESSION['rsPlanos'])){
     $rsPlanos = $_SESSION['rsPlanos'];
@@ -80,6 +76,9 @@
       }
       .show{
         visibility: visible;
+      }
+      .form-number-range{
+        width: 40px !important;
       }
     </style>
 
@@ -199,27 +198,28 @@
           <form method="POST" name="frmsimulation" action="bd/age-range.php" >
 
             <?php
+
               $faixas = [ 
-                array("faixa" => "0-18","percentual" => 5),  
-                array("faixa" => "19-23","percentual" => 15),
-                array("faixa" => "24-28","percentual" => 25),
-                array("faixa" => "29-33","percentual" => 35),
-                array("faixa" => "34-38","percentual" => 45),
-                array("faixa" => "39-43","percentual" => 55),
-                array("faixa" => "44-48","percentual" => 65),
-                array("faixa" => "49-53","percentual" => 75),
-                array("faixa" => "54-58","percentual" => 85),
-                array("faixa" => "59+","percentual" => 95),
+                array("faixa" => "0-18","id" => "input1"),  
+                array("faixa" => "19-23","id" => "input2"),
+                array("faixa" => "24-28","id" => "input3"),
+                array("faixa" => "29-33","id" => "input4"),
+                array("faixa" => "34-38","id" => "input5"),
+                array("faixa" => "39-43","id" => "input6"),
+                array("faixa" => "44-48","id" => "input7"),
+                array("faixa" => "49-53","id" => "input8"),
+                array("faixa" => "54-58","id" => "input9"),
+                array("faixa" => "59+","id" => "input10"),
               ];
                
               
                for($i = 0; $i < count($faixas); $i++){
-                 $id = $faixas[$i]["percentual"];
+                 $id = $faixas[$i]["id"];
                  $faixa = $faixas[$i]["faixa"];
             ?>
               <div class="form-check form-check-inline ml-2 mr-2 mt-3">
-                <input class="form-check-input" type="radio" name="rdorange" 
-                id=<?=$id?> value=<?=$id?> >
+                <input class="form-check-input form-number-range" type="number" name=<?=$id?> 
+                id=<?=$id?> value="0">
 
                 <label class="form-check-label" for=<?=$id?> >
                   <?=$faixa?>
@@ -275,6 +275,7 @@
                     $modalidade = $rsPlanos[$cont]['modalidade'];
                     $preço = $rsPlanos[$cont]['preço'];
                     $reembolso = $rsPlanos[$cont]['reembolso'];
+                    $_SESSION['preco'] = $preço;
             ?>
             <div class="col-md-4"> <!-- COL -->
 
@@ -290,10 +291,12 @@
                       Modalidade: <?=$modalidade?>
                     </p>
                     <p class="card-text">
-                      Preço R$:<?=$preço?>
+                      Preço R$: <?=$preço?>
                     </p>
                     
-                    <?php $dataWhatever = $id . "-" . $operadora; ?>
+                    <?php 
+                      $dataWhatever = $id . "-" . $operadora;
+                    ?>
 
                     <button data-toggle="modal" data-target="#modalForm"
                       type="button" class="botao-green btn text-white" 
@@ -334,6 +337,7 @@
                             id="formGroupInput" 
                             placeholder="Nome Completo" 
                             maxlength="3000"
+                            onkeypress="return validarEntrada(event, 'string');"
                             required />
                         </div>
 
@@ -369,15 +373,29 @@
                         </div>
 
                         <div class="form-group">
-                          <label for="formGroupInput4">
-                            Número de telefone/celular*
+                          <label for="celular">
+                            Número de celular*
+                          </label>
+                          <input type="text"
+                            name="txtcelular" 
+                            class="form-control" 
+                            id="celular" 
+                            placeholder="(000) 00000-0000" 
+                            onkeypress="return mascaraFone(this, event);"
+                            required>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="telefone">
+                            Número de telefone
                           </label>
                           <input type="text"
                             name="txttelefone" 
                             class="form-control" 
-                            id="formGroupInput4" 
-                            placeholder="Tel/Cel" 
-                            required>
+                            id="telefone" 
+                            placeholder="(000) 0000-0000" 
+                            onkeypress="return mascaraFone(this, event);"
+                            >
                         </div>
 
                         <div class="d-flex justify-content-end w-100">
@@ -433,6 +451,7 @@
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" 
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" 
       crossorigin="anonymous"></script>
+    <script src="js/modulos.js"></script>
    
     <script>
       //Resgata URL
@@ -466,7 +485,9 @@
 
       $('#modalForm').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) 
-        var recipient = button.data('whatever') //data-whatever do elemento 
+        var recipient = button.data('whatever') //data-whatever do elemento
+        
+        console.log(recipient);
 
         var array = recipient.split("-"); //converte para array
         var id = array[0]

@@ -10,6 +10,10 @@
     $email = $_POST['txtemail'];
     $mensagem = $_POST['txtmensagem'];
 
+    $nome = strtoupper($nome);
+    $nome = str_replace("'", " ", $nome); //substitui aspas simples por nada
+    $mensagem = str_replace("'", " ", $mensagem);
+
     //SCRIPT PARA INSERIR OS DADOS RESGATADOS DO FORMULÁRIO
     $sql = "INSERT INTO tblcontato (nome, telefone, email, mensagem)
     VALUES('".$nome."', '".$telefone."', '".$email."', '".$mensagem."');";

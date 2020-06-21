@@ -132,3 +132,11 @@ VALUES (8, 'Como cancelar um plano?', 'Mande um email para maktubseguros@gmail.c
 INSERT INTO tblsuporte (idtopico, pergunta, resposta)
 VALUES (9, 'Como faço para contratar um plano?', 'Faça uma simulação na tela home e escolha um plano.'),
 (9,'O que devo fazer após a simulação?', 'O cliente deve aguardar o contato com o corretor.');
+
+ALTER TABLE `dbmaktub_teste`.`tblcliente` 
+CHANGE COLUMN `telefone` `celular` VARCHAR(16) NOT NULL ;
+ALTER TABLE `dbmaktub_teste`.`tblcliente` 
+ADD COLUMN `telefone` VARCHAR(15) NULL AFTER `celular`;
+
+ALTER TABLE `dbmaktub_teste`.`tblcliente_plano` 
+ADD COLUMN `preço` FLOAT NULL AFTER `idplano`;

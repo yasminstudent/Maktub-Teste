@@ -95,13 +95,16 @@
                 <div class="form-group">
                   <label for="input1">Nome Completo*</label>
                   <input name="txtnome" type="text" required  
+                  onkeypress="return validarEntrada(event, 'string');"
                   class="form-control" id="input1" maxlength="3000">
                 </div>
 
                 <div class="form-group">
-                  <label for="input2">Telefone*</label>
+                  <label for="telefone">Telefone*</label>
                   <input name="txttelefone" type="text" required 
-                  class="form-control" id="input2">
+                  class="form-control" id="telefone" 
+                  onkeypress="return mascaraFone(this, event);"
+                  >
                 </div>
 
                 <div class="form-group">
@@ -165,6 +168,7 @@
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
       integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
       crossorigin="anonymous"></script>
+    <script src="js/modulos.js"></script>
 
     <script>
       //Resgata URL
