@@ -1,17 +1,17 @@
 <?php 
   /*
-    Retornar mensagem ao usuário
-    Revisar nomenclatura
-    Add comentários
-    Criar tabela de tipo de CNPJ
-    ajustar responsivos
-    Perguntar se é interior de SP 1 ou 2 
-    Revisar os planos criados na tabela que junta tudo
-    filtro por preço
-    filtro por modalidade
-    arrumar lance do css não pegar
-    mascara
-    arrumar lance de escolher as faixas
+    1º CRIAR AS OUTRAS TABELAS NO BD -> 1º TEMPO
+    2º RETORNAR MENSAGEM AO USUÁRIO -> 1º E 2º TEMPO
+    3º ADICIONAR COMENTÁRIOS -> 3º TEMPO
+    4º FAZER BACK SUPORTE -> 3º E 4º TEMPO
+    5º MÁSCARAS/VALIDAÇÕES -> 5º TEMPO (COPIAR E COLAR)
+    6º AJUSTAR RESPONSIVO -> 5º TEMPO (SÓ MUDANÇAS URGENTES)
+    7º LINK CSS (FAZER PEGAR) -> 6º TEMPO
+    8º FAZER ESQUEMA PARA PLANO COM MAIS DE UMA PESSOA -> ?
+    9º CRIAR TABELA DE CNPJ -> 1 TEMPO
+    10º FILTROS (PREÇO E MODALIDADE) -> 1,5 TEMPO
+
+    11º TESTAR IMPORTE DO BD E FAZER UM  README
   */
 
   if(!isset($_SESSION)){
