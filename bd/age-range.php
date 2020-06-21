@@ -1,5 +1,5 @@
 <?php  
-  if(isset($_POST['btnrange'])) //-----------------IF VERIFICANDO FORMULÁRIO
+  if(isset($_POST['btnrange'])) //-----------------IF VERIFICANDO AÇÃO NO FORMULÁRIO
   {
   
     //IMPORTE DO ARQUIVO DE CONEXÃO
@@ -24,15 +24,20 @@
         session_start();
       }
 
-      foreach($select as $dados){ //-----------------FOREACH
+      foreach($select as $dados){ //-----------------FOREACH PERCORRENDO SELECT
 
         $percentual_modalidade = $dados['percentual'];
 
+        /* 
+          CALCULA O VALOR DO PREÇO BASE + A PORCENTAGEM ADICIONAL DA MODALIDADE
+          E DA FAIXA ETÁRIA
+        */
         $preco = ((( $percentual_faixa +  $percentual_modalidade) /100)
         * $dados['preco_base']) + $dados['preco_base']; 
 
         $reembolso = ($dados['reembolso'] / 100) * $preco;
         
+
         $rsPlano = array(
           "id" => $dados['id'],
           "operadora" => $dados['operadora'],
@@ -41,6 +46,7 @@
           "preço" => $preco
         );
   
+        //SE O ARRAY TIVER DADOS INSERE SEU VALOR E O NOVO PLANO
         if($rsPlanos){
           $rsPlanos = [...$rsPlanos, $rsPlano];
         }
@@ -48,7 +54,7 @@
           $rsPlanos = [$rsPlano];
         }
         
-      }//-----------------FOREACH
+      }//-----------------FOREACH PERCORRENDO SELECT
       
       $_SESSION['rsPlanos'] = $rsPlanos;
 
@@ -60,5 +66,5 @@
       echo("Erro ao executar o script");
     } 
     
-  }//-----------------IF VERIFICANDO FORMULÁRIO
+  }//-----------------IF VERIFICANDO AÇÃO NO FORMULÁRIO
 ?>

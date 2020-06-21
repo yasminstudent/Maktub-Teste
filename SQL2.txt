@@ -29,3 +29,81 @@ alter table tblplano_modalidade add foreign key (idplano) references tblplano (i
 alter table tblplano_modalidade add foreign key (idmodalidade) references tblmodalidade (id);
 
 insert into tblplano_modalidade (idplano, idmodalidade) values(1, 1), (1, 2), (2, 1), (2, 2), (3, 1), (4, 2), (5, 1);
+
+CREATE TABLE `dbmaktub_teste`.`tblcliente` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome_completo` VARCHAR(3000) NOT NULL,
+  `tipo_cnpj` VARCHAR(45) NOT NULL,
+  `tipo_contato` VARCHAR(45) NOT NULL,
+  `telefone` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `dbmaktub_teste`.`tblcliente_plano` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `idcliente` INT NOT NULL,
+  `idplano` INT NOT NULL,
+  PRIMARY KEY (`id`));
+
+alter table tblcliente_plano add foreign key (idplano) references tblplano(id);
+alter table tblcliente_plano add foreign key (idcliente) references tblcliente(id);
+
+CREATE TABLE `dbmaktub_teste`.`tblcontato` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(3000) NOT NULL,
+  `telefone` VARCHAR(15) NOT NULL,
+  `email` TEXT NULL,
+  `mensagem` TEXT(5000) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `dbmaktub_teste`.`tblsuporte` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `idtopico` INT NOT NULL,
+  `pergunta` VARCHAR(3000) NOT NULL,
+  `resposta` VARCHAR(3000) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `dbmaktub_teste`.`tbltopico` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `topico` VARCHAR(3000) NOT NULL,
+  PRIMARY KEY (`id`));
+
+alter table tblsuporte add foreign key (idtopico) references tbltopico (id);
+
+insert into tbltopico (topico) values('PAGAMENTO'), ('TIPO DE SEGURO'), ('MODALIDADE'), ('OPERADORA');
+insert into tbltopico (topico) values('REEMBOLSO'), ('REGIÃO'), ('SITEMA');
+
+INSERT INTO tblsuporte (idtopico, pergunta, resposta)
+VALUES 
+(1, 'Quais são as formas de pagamento?', 'Você pode efetuar o pagamento por boleto ou cartão de crédito.'),
+(1, 'Como funciona o pagamento?', 'Após o corretor entrar em contato e os detalhes forem acertados, o cliente deve efetuar o pagamento. Quando a empresa receber, o plano estará disponível.'),
+(1, 'Quantos dias úteis demora para confirmar o pagamento?', 'Caso o cliente pague pelo boleto, o prazo é de até 3 dias úteis. Caso contrário, o prazo é de 2 dias úteis.'),
+(1, 'Quais cartões a empresa aceita?', 'Nós aceitamos VISA, MASTERCARD, ELO, AMERICAN EXPRESS, HIPERCARD E JCB.'),
+(1, 'Quais são os descontos?', 'Não oferecemos descontos.');
+
+INSERT INTO tblsuporte (idtopico, pergunta, resposta)
+VALUES 
+(2, 'Vocês vendem seguros de veículos?', 'No momento só trabalhamos com seguros de saúde, mas temos como objetivo cobrir toda a área de seguros num futuro próximo.');
+
+INSERT INTO tblsuporte (idtopico, pergunta, resposta)
+VALUES 
+(3, 'Quais são as modalidades?', 
+'Os planos possuem as modalidades Enfermaria e/ou Apartamento.'),
+(3, 'Qual a diferença das modalidades?', 
+'A modalidade Apartamento possui x, x e x, e a modalidade Enfermaria possui y, y e y.');
+
+INSERT INTO tblsuporte (idtopico, pergunta, resposta)
+VALUES 
+(4, 'Quais são as operadoras?', 
+'No momento trabalhamos com as operadoras: Notre Dame Intermédica, Bradesco Saúde, Unimed, Amil e Sul América.'),
+(4, 'O que é uma operadora?', 
+'É uma empresa que disponibiliza planos de saúde.'), 
+(4, 'Como escolher uma operadora?', 
+'Faça uma simulação e aguarde o corretor entrar em contato, ele explicará todas diferenças.'),
+(4, 'Quais as diferenças entre as operadoras?', 
+'As principais diferenças entre as operadoras são:
+ Notre Dame Intermédica: xxxxxxxx;
+ Bradesco Saúde: yyyyyyyyyy;
+ Unimed: jjjjjjjjjjj;
+ Amil: hhhhhhhhhhh;
+ Sul América: dddddddddd;
+.');

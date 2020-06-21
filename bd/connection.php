@@ -1,5 +1,5 @@
 <?php
-    
+    // FUNÇÃO COM OS DADOS DA CONEXÃO
     function connectionMysql(){
         
         $server = (string) "localhost";

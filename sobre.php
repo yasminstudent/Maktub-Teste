@@ -2,7 +2,7 @@
 <html lang="pt-br">
   <head>
     <title>
-      Contato | Maktub Seguros
+      Sobre | Maktub Seguros
     </title>
 
     <meta charset="utf-8">
@@ -47,6 +47,7 @@
 
     <?php require_once("header.php")?>
 
+    <!-- CONTAINER TEXTOS E FOTO  -->
     <section class="bg-blue-gradient">
       <div class="container text-white text-center pt-4 pb-4">
         <div class="row">
@@ -64,8 +65,10 @@
       </div>
     </section>
 
+    <!-- IMAGEM ENTRE AS SESSÕES -->
     <section class="bg-fixed bg-aurora"></section>
 
+    <!-- CONTAINER TEXTOS E FOTO  -->
     <section>
       <div class="container">
         <div class="row">
@@ -92,8 +95,10 @@
       </div>
     </section>
 
+    <!-- IMAGEM ENTRE AS SESSÕES -->
     <section class="bg-fixed bg-aurora"></section>
 
+    <!-- CONTAINER TEXTOS E FOTO  -->
     <section>
       <div class="container">
         <div class="row">
@@ -120,8 +125,10 @@
       </div>
     </section>
 
+    <!-- IMAGEM ENTRE AS SESSÕES -->
     <section class="bg-fixed bg-aurora"></section>
 
+    <!-- CONTAINER TEXTOS E FOTO E FOTO  -->
     <section>
       <div class="container">
         <div class="row">

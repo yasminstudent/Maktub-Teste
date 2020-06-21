@@ -1,7 +1,7 @@
 <?php
-  //VERRIFICAR A AÇÃO NO FORMULÁRIO
-  if(isset($_POST['btnenviar'])){
+  if(isset($_POST['btnenviar'])){ //----------IF VERIFICANDO AÇÃO NO FORMULÁRIO
 
+    //IMPORTE DO ARQUIVO DE CONEXÃO
     require_once('connection.php');
     $connection = connectionMysql();
 
@@ -10,22 +10,19 @@
     $email = $_POST['txtemail'];
     $mensagem = $_POST['txtmensagem'];
 
+    //SCRIPT PARA INSERIR OS DADOS RESGATADOS DO FORMULÁRIO
     $sql = "INSERT INTO tblcontato (nome, telefone, email, mensagem)
     VALUES('".$nome."', '".$telefone."', '".$email."', '".$mensagem."');";
     
     $insert = mysqli_query($connection, $sql);
 
-    if(!isset($_SESSION)){
-      session_start();
-    }
-
+    //VERIFICA INSERT
     if($insert){
-      $_SESSION['status'] = "ok";
-      header('location:../contato.php');
+      header('location:../contato.php?modo=contato&status=200');
     }
     else{
       echo $sql;
     }
 
-  }
+  }//----------IF VERIFICANDO AÇÃO NO FORMULÁRIO
 ?>

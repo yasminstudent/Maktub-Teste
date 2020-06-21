@@ -35,12 +35,23 @@
       .w-60 {
         width: 60%;
       }
+      #snackbar{
+        position: absolute;
+        z-index: 1;
+      }
+      .showoff{
+        visibility: hidden;
+      }
+      .show{
+        visibility: visible;
+      }
     </style>
   </head>
   <body>
 
     <?php require_once("header.php")?>
 
+    <!-- TOPO DA PÁGINA -->
     <section class="bg-blue-gradient">
       <div class="container text-white text-center pt-4 pb-4">
         <div class="d-flex justify-contet-center align-items-center flex-column">
@@ -55,10 +66,30 @@
       </div>
     </section>
 
+
+    <!-- FORMULÁRIO -->
     <section>
       <div class="container">
         <div class="row">
-          <div class="col-md-5">
+          <div class="col-md-5"> <!-- COL -->
+
+            <!-- TOAST -->
+            <div class="showoff" 
+            style="min-height: 200px; width: 400px;" id="snackbar">
+              <div class="toast-header w-100">
+                <strong class="mr-auto">Mensagem</strong>
+                <small>1 sec ago</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="toast-body w-100 text-white bg-blue-dark">
+                Sua escolha foi cadastrada com sucesso. Em breve um corretor entrará
+                em contato.
+              </div>
+            </div>
+
+            <!-- FORM -->
             <form method="POST" action="bd/insert-contato.php" 
               class="w-60 ml-auto mr-auto mt-5 mb-5"> 
                 <div class="form-group">
@@ -89,8 +120,12 @@
                 <input type="submit" value="ENVIAR" name="btnenviar"
                   class="btn botao-green btn-big text-white"/>
               </form>
-          </div>
-          <div class="col-md-7 bg-blue text-white">
+          
+          
+          
+          </div> <!-- COL -->
+
+          <div class="col-md-7 bg-blue text-white"> <!-- COL -->
             <div class="bg-arvore w-100 h-100 d-flex flex-column 
               justify-content-center pl-3">
               <h1 class="display-4 text-uppercase ">
@@ -109,7 +144,7 @@
                 crescermos
               </h1>
             </div>
-          </div>
+          </div> <!-- COL -->
         </div>
       </div>
     </section>
@@ -130,6 +165,27 @@
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
       integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
       crossorigin="anonymous"></script>
+
+    <script>
+      //Resgata URL
+      var query = location.search.slice(1);
+      
+      //Verifica o modo e estado
+      if(query == "modo=contato&status=200"){
+        window.scroll(0,500);
+
+        //Resgata o toast e atribui a classe show (que deixa visivel)
+        var x = document.getElementById("snackbar");  
+        x.className = "show d-flex flex-column justify-content-center align-items-center";
+
+        //Após 4 segudos substitui para showoff (que oculta)
+        setTimeout(() => {
+          x.className = 
+            x.className.replace("show d-flex flex-column justify-content-center align-items-center",
+            "showoff");
+        }, 4000);
+      }
+    </script>
 
   </body>
 </html>

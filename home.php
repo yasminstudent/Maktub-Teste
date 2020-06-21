@@ -1,9 +1,7 @@
 <?php 
   /*
-    1º CRIAR AS OUTRAS TABELAS NO BD -> 1º TEMPO
-    2º RETORNAR MENSAGEM AO USUÁRIO -> 1º E 2º TEMPO
-    3º ADICIONAR COMENTÁRIOS -> 3º TEMPO
-    4º FAZER BACK SUPORTE -> 3º E 4º TEMPO
+    4º FAZER BACK SUPORTE -> 4º TEMPO
+    
     5º MÁSCARAS/VALIDAÇÕES -> 5º TEMPO (COPIAR E COLAR)
     6º AJUSTAR RESPONSIVO -> 5º TEMPO (SÓ MUDANÇAS URGENTES)
     7º LINK CSS (FAZER PEGAR) -> 6º TEMPO
@@ -12,6 +10,7 @@
     10º FILTROS (PREÇO E MODALIDADE) -> 1,5 TEMPO
 
     11º TESTAR IMPORTE DO BD E FAZER UM  README
+    12º PEQUENOS AJUSTES DO TOAST
   */
 
   if(!isset($_SESSION)){
@@ -68,6 +67,16 @@
         width: 120px;
         border-radius: 20px;
       }
+      #snackbar{
+        position: absolute;
+        z-index: 1;
+      }
+      .showoff{
+        visibility: hidden;
+      }
+      .show{
+        visibility: visible;
+      }
     </style>
 
     <?php 
@@ -85,8 +94,8 @@
         require_once("header.php");
     ?>
 
-    <!-- SLIDE -->
-    <section id="home" class="d-flex bg-blue-gradient"><!--home -->
+    <!------------ SLIDE -->
+    <section id="home" class="d-flex bg-blue-gradient">
       <div class="container align-self-center"><!--container -->
         <div class="row"><!--row -->
           <div class="col-md-12">
@@ -142,9 +151,9 @@
           </div>
         </div><!--/row -->
       </div><!--/container -->
-    </section><!--/home -->
+    </section>
 
-    <!-- SOBRE A EMPRESA -->
+     <!------------ SOBRE -->
     <section>
       <div class="container pb-3">
         <div id="rectangle-on-top" class="ml-auto mr-auto bg-blue-dark"></div>
@@ -171,11 +180,10 @@
         </div>
       </div>
     </section>
-    <!-- <section class="image-between-sessions"></section> -->
 
-    <!-- SIMULAÇÃO -->
+    <!------------ FORMULÁRIO -->
     <section id="form-simulacao" class="bg-blue text-white">
-      <div class="container pt-4">
+      <div class="container pt-4"> <!-- CONTAINER -->
         <h1 class="text-capitalize text-center mb-2 display-4">
             Faça a sua simulação
         </h1>    
@@ -225,12 +233,32 @@
 
           </form>
         </div>
-      </div>
+      </div> <!-- CONTAINER -->
     </section>
+ 
+     <!------------ CONTAINER PLANOS -->
     <section class="pt-5" id="container-planos">
-      <div class="container background-gray pb-4">
-        <div class="row">
-          <div class="d-flex flex-row flex-wrap">
+      <div class="container background-gray pb-4"> <!-- CONTAINER -->
+
+      <!-- TOAST -->
+       <div class="showoff d-flex flex-column justify-content-center align-items-center " 
+        style="min-height: 200px; width: 400px;" id="snackbar">
+          <div class="toast-header w-100">
+            <strong class="mr-auto">Mensagem</strong>
+            <small>1 sec ago</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="toast-body w-100 text-white bg-blue-dark">
+            Sua escolha foi cadastrada com sucesso. Em breve um corretor entrará
+            em contato.
+          </div>
+        </div>
+
+        
+        <div class="row"> <!-- ROW -->
+          <div class="d-flex flex-row flex-wrap"> <!-- D-FLEX -->
 
             <?php 
               if(isset($rsPlanos)){
@@ -244,139 +272,142 @@
                     $preço = $rsPlanos[$cont]['preço'];
                     $reembolso = $rsPlanos[$cont]['reembolso'];
             ?>
-            <div class="col-md-4">
-                <div class="card w-85 ml-auto mr-auto mb-2 border border-primary">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                          <?=$operadora?>
-                        </h5>
-                        <p class="card-text">
-                          R$:<?=$reembolso?> de reemboloso
-                        </p>
-                        <p class="card-text">
-                          Modalidade: <?=$modalidade?>
-                        </p>
-                        <p class="card-text">
-                          Preço R$:<?=$preço?>
-                        </p>
+            <div class="col-md-4"> <!-- COL -->
+
+              <div class="card w-85 ml-auto mr-auto mb-2 border border-primary">
+                <div class="card-body">
+                    <h5 class="card-title">
+                      <?=$operadora?>
+                    </h5>
+                    <p class="card-text">
+                      R$:<?=$reembolso?> de reemboloso
+                    </p>
+                    <p class="card-text">
+                      Modalidade: <?=$modalidade?>
+                    </p>
+                    <p class="card-text">
+                      Preço R$:<?=$preço?>
+                    </p>
+                    
+                    <?php $dataWhatever = $id . "-" . $operadora; ?>
+
+                    <button data-toggle="modal" data-target="#modalForm"
+                      type="button" class="botao-green btn text-white" 
+                      data-whatever=<?=$dataWhatever?>
+                      > 
+                      escolher
+                    </button>
+                </div>
+              </div>
+
+              <div class="modal fade" id="modalForm" tabindex="-1" 
+                  role="dialog" aria-labelledby="modalLabel" 
+                  aria-hidden="true"> <!-- MODAL -->
+
+                <div class="modal-dialog"> <!-- DIALOG -->
+                  <div class="modal-content">
+
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modalLabel">
                         
-                        <?php $dataWhatever = $id . "-" . $operadora; ?>
-
-                        <button data-toggle="modal" data-target="#modalForm"
-                          type="button" class="botao-green btn text-white" 
-                          data-whatever=<?=$dataWhatever?>
-                          > 
-                          escolher
-                        </button>
+                      </h5>
+                      <button type="button" class="close" data-dismiss="modal" 
+                      aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
-                </div>
 
-                
+                    <div class="modal-body">
+                      <form method="POST" class="modalfrm" name="frmplano">
 
-                <!-- Modal -->
-                <div class="modal fade" id="modalForm" tabindex="-1" 
-                    role="dialog" aria-labelledby="modalLabel" 
-                    aria-hidden="true">
+                        <div class="form-group">
+                          <label for="formGroupInput">
+                            Nome Completo*
+                          </label>
+                          <input type="text" 
+                            name="txtnome" 
+                            class="form-control" 
+                            id="formGroupInput" 
+                            placeholder="Nome Completo" 
+                            maxlength="3000"
+                            required />
+                        </div>
 
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="modalLabel">
-                          
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" 
-                        aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <form method="POST" class="modalfrm" name="frmplano">
+                        <div class="form-group">
+                          <label for="formGroupInput2">
+                            Qual é o tipo de CNPJ?*
+                          </label>
+                          <select class="form-control"
+                            name="sltcnpj"  
+                            id="formGroupInput2">
+                            <option value="MEI" selected>MEI</option>
+                            <option value="ME"> ME </option>
+                            <option value="LTDA"> LTDA </option>
+                            <option value="EI"> EI </option>
+                            <option value="EPP"> EPP </option>
+                            <option value="EIRELI"> EIRELI </option>
+                            <option value="S.A"> S.A </option>
+                          </select>
+                        </div>
 
-                          <div class="form-group">
-                            <label for="formGroupInput">
-                              Nome Completo*
-                            </label>
-                            <input type="text" 
-                              name="txtnome" 
-                              class="form-control" 
-                              id="formGroupInput" 
-                              placeholder="Nome Completo" 
-                              maxlength="3000"
-                              required />
-                          </div>
+                        <div class="form-group">
+                          <label for="formGroupInput3">
+                            Como você quer ser contatado?*
+                          </label>
+                          <select class="form-control"
+                            name="sltcontato" 
+                            id="formGroupInput3">
+                            <option value="WHATSAPP" selected>
+                              WHATSAPP
+                            </option>
+                            <option value="TELEFONE"> TELEFONE </option>
+                          </select>
+                        </div>
 
-                          <div class="form-group">
-                            <label for="formGroupInput2">
-                              Qual é o tipo de CNPJ?*
-                            </label>
-                            <select class="form-control"
-                              name="sltcnpj"  
-                              id="formGroupInput2">
-                              <option value="MEI" selected>MEI</option>
-                              <option value="ME"> ME </option>
-                              <option value="LTDA"> LTDA </option>
-                              <option value="EI"> EI </option>
-                              <option value="EPP"> EPP </option>
-                              <option value="EIRELI"> EIRELI </option>
-                              <option value="S.A"> S.A </option>
-                            </select>
-                          </div>
+                        <div class="form-group">
+                          <label for="formGroupInput4">
+                            Número de telefone/celular*
+                          </label>
+                          <input type="text"
+                            name="txttelefone" 
+                            class="form-control" 
+                            id="formGroupInput4" 
+                            placeholder="Tel/Cel" 
+                            required>
+                        </div>
 
-                          <div class="form-group">
-                            <label for="formGroupInput3">
-                              Como você quer ser contatado?*
-                            </label>
-                            <select class="form-control"
-                              name="sltcontato" 
-                              id="formGroupInput3">
-                              <option value="WHATSAPP" selected>
-                                WHATSAPP
-                              </option>
-                              <option value="TELEFONE"> TELEFONE </option>
-                            </select>
-                          </div>
+                        <div class="d-flex justify-content-end w-100">
+                          <button name="btnescolha"
+                            type="submit" class="btn btn-primary">
+                            ENVIAR
+                          </button>
+                        </div>
 
-                          <div class="form-group">
-                            <label for="formGroupInput4">
-                              Número de telefone/celular*
-                            </label>
-                            <input type="text"
-                              name="txttelefone" 
-                              class="form-control" 
-                              id="formGroupInput4" 
-                              placeholder="Tel/Cel" 
-                              required>
-                          </div>
-
-                          <div class="d-flex justify-content-end w-100">
-                            <button name="btnescolha"
-                              type="submit" class="btn btn-primary">
-                              ENVIAR
-                            </button>
-                          </div>
-
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" 
-                          data-dismiss="modal">
-                          FECHAR
-                        </button>
-                      </div>
+                      </form>
                     </div>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" 
+                        data-dismiss="modal">
+                        FECHAR
+                      </button>
+                    </div>
+
                   </div>
+                </div> <!-- DIALOG -->
 
-                </div>
+              </div> <!-- MODAL -->
                 
-            </div>
+            </div> <!-- COL -->
             <?php 
                 }
               }
             ?>  
-          </div>
-        </div>
-      </div>
+          </div> <!-- D-FLEX -->
+        </div> <!-- ROW -->
+      </div> <!-- CONTAINER -->
     </section>
+
 
     <!-- Rodapé -->
     <?php
@@ -400,33 +431,51 @@
       crossorigin="anonymous"></script>
    
     <script>
+      //Resgata URL
       var query = location.search.slice(1);
       
       if(query == "modo=buscarPlanos"){
-          window.scroll(0,1000);
-      }
- 
-      if(query == "modo=escolha"){
-          window.scroll(0,1300);
+        window.scroll(0,1000);
       }
 
+      //Verifica o modo e estado
+      if(query == "modo=escolha&status=200"){
+        window.scroll(0,1300);
+
+        //Resgata o toast e atribui a classe show (que deixa visivel)
+        var x = document.getElementById("snackbar");  
+        x.className = "show d-flex flex-column justify-content-center align-items-center";
+
+        //Após 4 segudos substitui para showoff (que oculta) 
+        setTimeout(() => {
+          x.className = 
+            x.className.replace("show d-flex flex-column justify-content-center align-items-center",
+            "showoff");
+        }, 4000);
+               
+      }
+
+      //Função que add o id na url do action
       function action(id){
         $(".modalfrm").attr("action","bd/insert-escolha.php?id=" + id);
       }
 
       $('#modalForm').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) 
-        var recipient = button.data('whatever') 
+        var recipient = button.data('whatever') //data-whatever do elemento 
 
-        var array = recipient.split("-");
+        var array = recipient.split("-"); //converte para array
         var id = array[0]
         var operadora = array[1]
 
         var modal = $(this)
         modal.find('.modal-title').text('Você escolheu o plano ' + operadora)
-        action(id);
+
+        action(id); //chama a função que muda o action do form
       })
-   </script>  
+
+      
+    </script>  
 
   </body>
 </html>

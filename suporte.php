@@ -49,16 +49,18 @@
     <?php require_once("header.php")?>
 
     <section>
-      <div class="container">
+      <div class="container"> <!-- CONTAINER -->
         <h1 class="display-4 text-gray text-center mt-6 mb-4">
           Dúvidas? A gente te ajuda.
         </h1>
 
-        <form class="form-inline w-75 ml-auto mr-auto mt-6
+        <form method="POST" name="frmsuporte" action="bd/select-suporte.php"
+          class="form-inline w-75 ml-auto mr-auto mt-6
           d-flex justify-content-center">
           <input type="text" class="form-control mx-sm-2 mb-2 w-75" 
-          placeholder="Digite sua dúvida aqui">
-          <button type="submit" class="btn botao-green mb-2 btn-big text-white">
+          placeholder="Digite sua dúvida aqui" name="txtduvida">
+          <button name="btnbuscar" type="submit" 
+            class="btn botao-green mb-2 btn-big text-white">
             Buscar
           </button>
         </form>
@@ -68,7 +70,7 @@
 
           </div>
         </div>
-      </div>
+      </div> <!-- CONTAINER -->
     </section>
 
     <?php
