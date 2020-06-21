@@ -1,3 +1,9 @@
+<?php
+  if(!isset($_SESSION)){
+    session_start();
+  };    
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -42,6 +48,9 @@
       .bg-gray {
         background-color: #e0e0e0;
       }
+      .bg-white{
+        background-color: #ffffff;
+      }
     </style>
   </head>
   <body>
@@ -66,12 +75,44 @@
         </form>
 
         <div class="w-100 d-flex justify-content-center mb-5 mt-5">
-          <div class="bg-gray container-duvidas w-75 mb-5">
+          <div class="bg-gray container-duvidas w-75 mb-5
+          d-flex flex-column align-items-center pt-4 pb-2"> <!-- CONTAINER PERGUNTAS -->
+            <?php
+              if(isset($_SESSION['rsDuvidas'])) {
+                $rsPerguntas = $_SESSION['rsDuvidas'];
+                $size = count($rsPerguntas);
 
-          </div>
+                for($i = 0; $i < $size; $i++){
+                  $pergunta = $rsPerguntas[$i]['pergunta'];
+                  $resposta = $rsPerguntas[$i]['resposta'];
+                  $numero = $i + 1;
+            ?>
+                <table class="table mb-3 w-75">
+                  <thead>
+                    <tr class="bg-primary text-white">
+                      <th scope="col"><?=$numero?></th>
+                      <th scope="col"><?=$pergunta?></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="bg-white">
+                      <th scope="row">R:</th>
+                      <td><?=$resposta?></td>
+                    </tr>
+                  </tbody>
+                </table>
+            <?php
+                }
+              };
+            ?>
+          </div><!-- CONTAINER PERGUNTAS -->
         </div>
       </div> <!-- CONTAINER -->
     </section>
+
+    
+    
+    
 
     <?php
       require_once("footer.php");

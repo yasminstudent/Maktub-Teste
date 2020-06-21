@@ -1,35 +1,66 @@
 <?php
 
-  if(isset($_POST['btnbuscar'])){
+  if(isset($_POST['btnbuscar'])){//-----------------VERIFICA A AÇÃO NO FORM
+    
     //IMPORTA ARQUIVO DE CONEXÃO E CHAMA A FUNÇÃO
     require_once("connection.php");
     $connection = connectionMysql();
 
-    $duvida = $_POST['txtduvida'];
-    $duvida = explode(" ", $duvida);
-
-    foreach($duvida as $palavra){
-      $sql = "SELECT tbltopico.topico, tblsuporte.* FROM tbltopico
-      INNER JOIN tblsuporte ON tblsuporte.idtopico = tbltopico.id 
-      WHERE tbltopico.topico LIKE '%" . $palavra . "%';";
-
-      echo "<br>" . $sql;
+    if(!isset($_SESSION)){
+      session_start();
     }
 
-   
+    //RESGATA PERGUNTA E TRANSFORMA EM ARRAY
+    $duvida = $_POST['txtduvida'];
+    $duvida = explode(" ", $duvida);
+ 
+    $rsDuvidas = [];
 
-  }
+    foreach($duvida as $palavra){ //-------------- FOREACH PERCORRENDO O ARRAY
+      $palavra = substr($palavra, 0, 4);
+      
+      //SELECT NA TABELA TÓPICO VERFIFICANDO SE EXISTE A PALAVRA NOS REGISTROS
+      $sql = "SELECT * FROM tbltopico WHERE 
+      tbltopico.topico LIKE '" . $palavra . "%';";
+      $select = mysqli_query($connection, $sql);
+      $rsTopico = mysqli_fetch_array($select);
 
-  //VERIFICAR AÇÃO NO FORMULÁRIO
+      
+      if($rsTopico['id']){
+        //SELECT NA TABELA DE SUPORTE
+        $sql = "SELECT * FROM tblsuporte WHERE idtopico = ".$rsTopico['id'];
+        $select = mysqli_query($connection, $sql);
 
-  //IMPORTAR ARQUIVO DE CONEXÃO
+        foreach($select as $dados){ //--------FOREACH PERCORRENDO O SELECT
 
-  //RESGATAR DADO E TRANSFORMAR EM ARRAY
+          $rsDuvida = array(
+            "pergunta" => $dados['pergunta'],
+            "resposta" => $dados['resposta']
+          );
+    
+          //SE O ARRAY TIVER DADOS INSERE SEU VALOR E A NOVA DÚVIDA
+          if($rsDuvidas){
+            $rsDuvidas = [...$rsDuvidas, $rsDuvida];
+          }
+          else{
+            $rsDuvidas = [$rsDuvida];
+          }
 
-  //SELECT NA TABELA SUPORTE - vendo o tópico - COM CADA INDICE DO ARRAY com inner
+        } //--------FOREACH PERCORRENDO O SELECT
+      }
+    }//-------------- FOREACH PERCORRENDO O ARRAY
 
-  //SELECT NA TABELA SUPORTE SEM INNER - vendo a pergunta - com id topico igual ao que pega lá em cima
+    //VERIFICA SE O ARRAY COM AS PERGUNTAS NÃO ESTÁ VAZIO
+    if($rsDuvidas != []){
+      $_SESSION['rsDuvidas'] = $rsDuvidas;
+      header('location:../suporte.php?modo=buscar');
+    }
+    else{
+      $_SESSION['status'] = 400;
+      header('location:../suporte.php?modo=buscar');
+    }
 
-
+ 
+  } //-----------------VERIFICA A AÇÃO NO FORM
 
 ?>
