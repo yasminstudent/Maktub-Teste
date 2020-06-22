@@ -1,12 +1,4 @@
 <?php 
-  /*
-
-    6º AJUSTAR RESPONSIVO 
-
-    9º TESTAR IMPORTE DO BD E FAZER UM  README
-
-  */
-
   if(!isset($_SESSION)){
     session_start();
   }
@@ -47,7 +39,7 @@
       crossorigin="anonymous">
     
     <!-- Bootstrap CSS -->
-    <link type="text/css" rel="stylesheet" href="css/style-maktub.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
       crossorigin="anonymous">
@@ -115,7 +107,7 @@
                         been the industry's standard dummy 
                       </p>
                     </div>
-                    <div class="col-md-6 ">
+                    <div class="col-md-6 d-none d-md-block">
                       <img src="images/slide1.png" id="img-slide1" />
                     </div>
                   </div>
@@ -131,7 +123,7 @@
                         been the industry's standard dummy 
                       </p>
                     </div>
-                    <div class="col-md-6 ">
+                    <div class="col-md-6 d-none d-md-block">
                       <img src="images/slide2-removebg-preview.png" 
                       id="img-slide2" />
                     </div>
@@ -166,7 +158,7 @@
           <div class="col-md-6 d-flex justify-content-center align-items-center">
             <img src="images/unnamed.png" id="home-sobre"  />
           </div>
-          <div class="col-md-6 text-center text-gray">
+          <div class="col-md-6 text-center text-gray pt-2">
             <p class="text ml-auto mr-auto w-75">
               Lorem Ipsum is simply dummy text of the printing and typesetting 
               industry. Lorem Ipsum has been the industry's standard dummy text 

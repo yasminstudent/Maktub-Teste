@@ -158,7 +158,7 @@
                 </div>
                 
                
-                <p class="mt-2">Ou preencha o formulário na página de contato</p>
+                <p class="mt-2">Ou nos mande uma mensagem na página de contato</p>
 
               </div>
             <?php

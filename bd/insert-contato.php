@@ -24,7 +24,7 @@
       header('location:../contato.php?modo=contato&status=200');
     }
     else{
-      echo $sql;
+      header('location:../contato.php?modo=contato&status=400');
     }
 
   }//----------IF VERIFICANDO AÇÃO NO FORMULÁRIO
