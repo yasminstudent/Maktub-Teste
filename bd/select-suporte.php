@@ -2,6 +2,7 @@
 
   if(isset($_POST['btnbuscar'])){//-----------------VERIFICA A AÇÃO NO FORM
     
+
     //IMPORTA ARQUIVO DE CONEXÃO E CHAMA A FUNÇÃO
     require_once("connection.php");
     $connection = connectionMysql();
@@ -12,6 +13,7 @@
 
     //RESGATA PERGUNTA E TRANSFORMA EM ARRAY
     $duvida = $_POST['txtduvida'];
+    $duvida = str_replace("'", " ", $duvida);
     $duvida = explode(" ", $duvida);
  
     $rsDuvidas = [];
@@ -26,7 +28,7 @@
       $rsTopico = mysqli_fetch_array($select);
 
       
-      if($rsTopico['id']){
+      if($rsTopico){
         //SELECT NA TABELA DE SUPORTE
         $sql = "SELECT * FROM tblsuporte WHERE idtopico = ".$rsTopico['id'];
         $select = mysqli_query($connection, $sql);
@@ -53,11 +55,11 @@
     //VERIFICA SE O ARRAY COM AS PERGUNTAS NÃO ESTÁ VAZIO
     if($rsDuvidas != []){
       $_SESSION['rsDuvidas'] = $rsDuvidas;
-      header('location:../suporte.php?');
+      header('location:../suporte.php');
     }
     else{
       $_SESSION['status'] = 400;
-      header('location:../suporte.php?');
+      header('location:../suporte.php');
     }
 
  

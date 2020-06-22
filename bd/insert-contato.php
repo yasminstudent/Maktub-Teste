@@ -5,14 +5,13 @@
     require_once('connection.php');
     $connection = connectionMysql();
 
-    $nome = $_POST['txtnome'];
     $telefone = $_POST['txttelefone'];
     $email = $_POST['txtemail'];
     $mensagem = $_POST['txtmensagem'];
 
+    $nome = filter_input(INPUT_POST, 'txtnome', FILTER_SANITIZE_SPECIAL_CHARS);
     $nome = strtoupper($nome);
-    $nome = str_replace("'", " ", $nome); //substitui aspas simples por nada
-    $mensagem = str_replace("'", " ", $mensagem);
+    $mensagem = filter_input(INPUT_POST, 'txtmensagem', FILTER_SANITIZE_SPECIAL_CHARS);
 
     //SCRIPT PARA INSERIR OS DADOS RESGATADOS DO FORMULÁRIO
     $sql = "INSERT INTO tblcontato (nome, telefone, email, mensagem)

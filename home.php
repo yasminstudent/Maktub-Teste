@@ -1,31 +1,33 @@
 <?php 
   /*
-    4º MÁSCARAS/VALIDAÇÕES -> 1T (COPIAR E COLAR)
 
-    Arrumar layout suporte e home
-
-    5º LINK CSS (FAZER PEGAR) -> 2T
-    6º AJUSTAR RESPONSIVO -> 2T (SÓ MUDANÇAS URGENTES)
-    (1h)
-
-    7º CRIAR TABELA DE CNPJ -> 1 TEMPO
+    6º AJUSTAR RESPONSIVO 
 
     9º TESTAR IMPORTE DO BD E FAZER UM  README
-    10º PEQUENOS AJUSTES DO TOAST
+
   */
 
   if(!isset($_SESSION)){
     session_start();
   }
 
+  $status = 2;
+
   if(isset($_SESSION['rsPlanos'])){
     $rsPlanos = $_SESSION['rsPlanos'];
+    $status = 1;
+    session_destroy();
+  }
+
+  if(isset($_SESSION['status'])){
+    $status = 0;
+    $warning = $_SESSION['status'];
+    session_destroy();
   }
 
   require_once('bd/connection.php');
   $connection = connectionMysql();
 
-  //print_r($rsPlanos[1]);
 ?>
 
 <!DOCTYPE html>
@@ -45,10 +47,11 @@
       crossorigin="anonymous">
     
     <!-- Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="css/style-maktub.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
       crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="css/style.css">
+    
 
     <style>
       .background-gray {
@@ -70,6 +73,9 @@
       #snackbar{
         position: absolute;
         z-index: 1;
+        top: 1100px;
+        left: 500px;
+
       }
       .showoff{
         visibility: hidden;
@@ -81,13 +87,6 @@
         width: 40px !important;
       }
     </style>
-
-    <?php 
-      if (isset($_SESSION['radio_vazio'])){
-            echo "<script>  window.alert( 'Selecione a sua faixa etária') </script>";
-            unset($_SESSION['radio_vazio']);
-      }
-    ?>
       
   </head>
 
@@ -190,9 +189,22 @@
         <h1 class="text-capitalize text-center mb-2 display-4">
             Faça a sua simulação
         </h1>    
-        <h1 class="text-capitalize mt-4 mb-3 ml-5 display-4 title-size">
-          Selecione a sua faixa etária
+        <h1 class="text-capitalize text-center mt-4 mb-3 ml-5 display-4 title-size">
+          Selecione a quantidade de pessoas por faixa etária
         </h1>
+
+        <?php
+          if($status === 0){
+        ?>
+          <div class="d-flex justify-content-center">
+            <p class="text-light text_uppercase">
+              <?=$warning?>
+            </p>
+          </div>
+        <?php
+          }
+        ?>
+        
 
         <div class="d-flex justify-content-center align-items-center flex-column">
           <form method="POST" name="frmsimulation" action="bd/age-range.php" >
@@ -251,7 +263,6 @@
             <strong class="mr-auto">Mensagem</strong>
             <small>1 sec ago</small>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="toast-body w-100 text-white bg-blue-dark">
@@ -265,7 +276,10 @@
           <div class="d-flex flex-row flex-wrap"> <!-- D-FLEX -->
 
             <?php 
-              if(isset($rsPlanos)){
+              if($status === 1){
+                  if(!isset($_SESSION)){
+                    session_start();
+                  }
 
                   $size = count($rsPlanos);
                 
@@ -295,7 +309,7 @@
                     </p>
                     
                     <?php 
-                      $dataWhatever = $id . "-" . $operadora;
+                      $dataWhatever = $id . "-" . $preço;
                     ?>
 
                     <button data-toggle="modal" data-target="#modalForm"
@@ -326,7 +340,6 @@
 
                     <div class="modal-body">
                       <form method="POST" class="modalfrm" name="frmplano">
-
                         <div class="form-group">
                           <label for="formGroupInput">
                             Nome Completo*
@@ -338,7 +351,8 @@
                             placeholder="Nome Completo" 
                             maxlength="3000"
                             onkeypress="return validarEntrada(event, 'string');"
-                            required />
+                            required 
+                          />
                         </div>
 
                         <div class="form-group">
@@ -348,13 +362,21 @@
                           <select class="form-control"
                             name="sltcnpj"  
                             id="formGroupInput2">
-                            <option value="MEI" selected>MEI</option>
-                            <option value="ME"> ME </option>
-                            <option value="LTDA"> LTDA </option>
-                            <option value="EI"> EI </option>
-                            <option value="EPP"> EPP </option>
-                            <option value="EIRELI"> EIRELI </option>
-                            <option value="S.A"> S.A </option>
+                            <?php  
+                              //script p/ o bd 
+                              $sql = "select * from tbltipo_cnpj";
+
+                              //conexao com o bd
+                              $select = mysqli_query($connection, $sql);
+
+                              //exibe enquanto exitir dados no array
+                              while($rsCnpj = mysqli_fetch_array($select)){
+                            ?>
+                              <option value="<?=$rsCnpj['id']?>"> <?=$rsCnpj['sigla']?>
+                              </option>
+                            <?php
+                              }
+                            ?>
                           </select>
                         </div>
 
@@ -479,8 +501,8 @@
       }
 
       //Função que add o id na url do action
-      function action(id){
-        $(".modalfrm").attr("action","bd/insert-escolha.php?id=" + id);
+      function action(id, preco){
+        $(".modalfrm").attr("action","bd/insert-escolha.php?id=" + id + "&preco=" + preco);
       }
 
       $('#modalForm').on('show.bs.modal', function (event) {
@@ -491,12 +513,12 @@
 
         var array = recipient.split("-"); //converte para array
         var id = array[0]
-        var operadora = array[1]
+        var preco = array[1]
 
         var modal = $(this)
-        modal.find('.modal-title').text('Você escolheu o plano ' + operadora)
+        modal.find('.modal-title').text('Seu plano custa ' + preco)
 
-        action(id); //chama a função que muda o action do form
+        action(id, preco); //chama a função que muda o action do form
       })
 
       

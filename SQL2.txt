@@ -140,3 +140,20 @@ ADD COLUMN `telefone` VARCHAR(15) NULL AFTER `celular`;
 
 ALTER TABLE `dbmaktub_teste`.`tblcliente_plano` 
 ADD COLUMN `preço` FLOAT NULL AFTER `idplano`;
+
+CREATE TABLE `dbmaktub_teste`.`tbltipo_cnpj` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `sigla` VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (`id`));
+
+insert into tbltipo_cnpj (sigla) values ('MEI'), ('ME'), ('LTDA'), ('EI'), ('EP'), ('EIRELI'), ('S.A');
+
+ALTER TABLE `dbmaktub_teste`.`tblcliente` 
+CHANGE COLUMN `tipo_cnpj` `idtipo_cnpj` VARCHAR(45) NOT NULL ;
+
+ALTER TABLE `dbmaktub_teste`.`tblcliente` 
+CHANGE COLUMN `idtipo_cnpj` `idtipo_cnpj` INT NOT NULL ;
+
+alter table tblcliente add foreign key (idtipo_cnpj) references tbltipo_cnpj (id);
+
+update tblsuporte set pergunta='Quais são os tipos de seguro que a Maktub trabalha?' where id = 6;

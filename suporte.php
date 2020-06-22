@@ -1,7 +1,23 @@
 <?php
   if(!isset($_SESSION)){
     session_start();
-  };    
+  };   
+  
+  $status = 2;
+
+  if(isset($_SESSION['status'])){
+    $status = 0;
+    session_destroy();
+  }
+
+  if(isset($_SESSION['rsDuvidas'])){
+    $status = 1;
+    $rsPerguntas = $_SESSION['rsDuvidas'];
+    session_destroy();
+  }
+
+  require_once('bd/connection.php');
+  $connection = connectionMysql();
 
 ?>
 <!DOCTYPE html>
@@ -51,11 +67,16 @@
       .bg-white{
         background-color: #ffffff;
       }
+      .tag{
+        width: 150px;
+        height: 27px;
+        border-radius: 20px;
+      }
     </style>
   </head>
   <body>
 
-    <?php require_once("header.php")?>
+    <?php require_once("header.php");?>
 
     <section>
       <div class="container"> <!-- CONTAINER -->
@@ -67,7 +88,7 @@
           class="form-inline w-75 ml-auto mr-auto mt-6
           d-flex justify-content-center">
           <input type="text" class="form-control mx-sm-2 mb-2 w-75" 
-          placeholder="Digite sua dúvida aqui" name="txtduvida">
+          placeholder="Digite sua dúvida aqui" name="txtduvida" required>
           <button name="btnbuscar" type="submit" 
             class="btn botao-green mb-2 btn-big text-white">
             Buscar
@@ -78,14 +99,15 @@
           <div class="bg-gray container-duvidas w-75 mb-5
           d-flex flex-column align-items-center pt-4 pb-2"> <!-- CONTAINER PERGUNTAS -->
             <?php
-              if(isset($_SESSION['rsDuvidas'])) {
-                $rsPerguntas = $_SESSION['rsDuvidas'];
-                $size = count($rsPerguntas);
 
-                for($i = 0; $i < $size; $i++){
-                  $pergunta = $rsPerguntas[$i]['pergunta'];
-                  $resposta = $rsPerguntas[$i]['resposta'];
-                  $numero = $i + 1;
+                if($status === 1){         
+                  
+                  $size = count($rsPerguntas);
+
+                  for($i = 0; $i < $size; $i++){
+                    $pergunta = $rsPerguntas[$i]['pergunta'];
+                    $resposta = $rsPerguntas[$i]['resposta'];
+                    $numero = $i + 1;
             ?>
                 <table class="table mb-3 w-75">
                   <thead>
@@ -102,25 +124,46 @@
                   </tbody>
                 </table>
             <?php
+                  }
                 }
-              };
             ?>
             <?php
-              if(isset($_SESSION['status'])) {
+              
+                if($status === 0) {
             ?>
-              <div>
+              <div class="text-center">
                 <h2>Ops! Nenhum resultado foi encontrado </h2>
                 <p>
-                  Tente usar palavras chaves: PAGAMENTO, SEGURO, REEMBOLSO, 
-                  MODALIDADE, OPERADORA, REGIÃO, CONTATO, CANCELAMENTO, 
-                  FUNCIONAMENTO ou CONTATO.
+                  Tente usar palavras chaves: 
                 </p>
+
+                <div class="d-flex flex-row flex-wrap w-75 ml-auto mr-auto 
+                  justify-content-center">
+                  <?php  
+                    //script p/ o bd 
+                    $sql = "select * from tbltopico";
+
+                    //conexao com o bd
+                    $select = mysqli_query($connection, $sql);
+
+                    //exibe enquanto exitir dados no array
+                    while($rsTopico = mysqli_fetch_array($select)){
+                  ?>
+                    <div class="tag bg-dark text-white text-center ml-2 mr-2 mt-2 mb-2"> 
+                      <?=$rsTopico['topico'];?>
+                    </div>
+                  <?php
+                    }
+                  ?>
+                </div>
+                
                
-                <p>Ou preencha o formulário na página de contato</p>
+                <p class="mt-2">Ou preencha o formulário na página de contato</p>
 
               </div>
             <?php
-              }
+                }
+              
             ?>
           </div><!-- CONTAINER PERGUNTAS -->
         </div>

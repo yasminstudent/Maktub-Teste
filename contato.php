@@ -84,8 +84,7 @@
                 </button>
               </div>
               <div class="toast-body w-100 text-white bg-blue-dark">
-                Sua escolha foi cadastrada com sucesso. Em breve um corretor entrará
-                em contato.
+                Sua mensagem foi enviada com sucesso.
               </div>
             </div>
 
@@ -114,10 +113,9 @@
                 </div>
                 
                 <div class="form-group">
-                  <label for="textarea">Mensagem</label>
+                  <label for="textarea">Mensagem*</label>
                   <textarea class="form-control" id="textarea" name="txtmensagem"
-                  rows="4" required maxlength="4000">
-                  </textarea>
+                  rows="4" required maxlength="4000"></textarea>
                 </div>
 
                 <input type="submit" value="ENVIAR" name="btnenviar"
@@ -187,7 +185,7 @@
           x.className = 
             x.className.replace("show d-flex flex-column justify-content-center align-items-center",
             "showoff");
-        }, 4000);
+        }, 3000);
       }
     </script>
 
