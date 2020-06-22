@@ -44,7 +44,7 @@ CREATE TABLE `dbmaktub_teste`.`tblcliente_plano` (
   `idplano` INT NOT NULL,
   PRIMARY KEY (`id`));
 
-alter table tblcliente_plano add foreign key (idplano) references tblplano(id);
+alter table tblcliente_plano add foreign key (idplano) references tblplano_modalidade(id);
 alter table tblcliente_plano add foreign key (idcliente) references tblcliente(id);
 
 CREATE TABLE `dbmaktub_teste`.`tblcontato` (

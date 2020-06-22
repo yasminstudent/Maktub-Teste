@@ -7,10 +7,10 @@
 
     $rsPlanos = [];
 
-    //SELECT COM OS DADOS DO PLANO
+    //SCRIPT PARA O SELECT COM OS DADOS DO PLANO
     $sql = 
-    "SELECT tblplano.*, tblmodalidade.nome, tblmodalidade.percentual 
-    FROM tblplano_modalidade 
+    "SELECT tblplano.*, tblmodalidade.nome, tblmodalidade.percentual, 
+    tblmodalidade.id as idmodalidade FROM tblplano_modalidade 
     INNER JOIN tblplano ON tblplano.id = tblplano_modalidade.idplano 
     INNER JOIN tblmodalidade ON tblmodalidade.id = tblplano_modalidade.idmodalidade;";
 
@@ -39,6 +39,7 @@
       header('location:../home.php?modo=buscarPlanos');
     }
     else{
+
       //CALCULA O PREÇO POR FAIXA
       function precoPorFaixa ($percentual, $preco, $repeticoes){
         //CALCULA O VALOR ADICIONAL DO PREÇO, SOMA COM O VALOR DO PREÇO
@@ -59,7 +60,6 @@
 
           /* 
             CALCULA O VALOR DO PREÇO BASE + A PORCENTAGEM ADICIONAL DA MODALIDADE
-            E DA FAIXA ETÁRIA
           */
           $preco_modalidade = (($percentual_modalidade /100)
           * $preco_base) + $preco_base; 
@@ -88,14 +88,22 @@
 
           $reembolso = ($dados['reembolso'] / 100) * $preco_total;
           
+          //SELECT NA TABELA PLANO MODALIDADE
+          $sql = "SELECT * FROM tblplano_modalidade WHERE idplano = 
+          ".$dados['id']." AND idmodalidade =".$dados['idmodalidade'].";";
+          $idplano = mysqli_query($connection, $sql);
+
+          $idplano = mysqli_fetch_array($idplano);
 
           $rsPlano = array(
-            "id" => $dados['id'],
+            "id" => $idplano['id'],
             "operadora" => $dados['operadora'],
             "reembolso" => $reembolso,
             "modalidade" => $dados['nome'],
             "preço" => $preco_total
           );
+
+          print_r($rsPlano);
     
           //SE O ARRAY TIVER DADOS INSERE SEU VALOR E O NOVO PLANO
           if($rsPlanos){
@@ -118,10 +126,7 @@
       } 
 
     }
-
-    
-
-    
+ 
     
   }//-----------------IF VERIFICANDO AÇÃO NO FORMULÁRIO
 ?>

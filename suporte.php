@@ -5,13 +5,15 @@
   
   $status = 2;
 
+  //SE EXISTIR É PORQUÊ NÃO FOI ENCONTRADA NEHUMA PERGUNTA RELACIONADA
   if(isset($_SESSION['status'])){
     $status = 0;
     session_destroy();
   }
 
+  //SE EXISTIR RESGATA O ARRAY DE PERGUNTAS 
   if(isset($_SESSION['rsDuvidas'])){
-    $status = 1;
+    $status = 1; 
     $rsPerguntas = $_SESSION['rsDuvidas'];
     session_destroy();
   }
@@ -99,8 +101,7 @@
           <div class="bg-gray container-duvidas w-75 mb-5
           d-flex flex-column align-items-center pt-4 pb-2"> <!-- CONTAINER PERGUNTAS -->
             <?php
-
-                if($status === 1){         
+                if($status === 1){  //----- IF VERIFICANDO STATUS       
                   
                   $size = count($rsPerguntas);
 
@@ -125,11 +126,11 @@
                 </table>
             <?php
                   }
-                }
+                } //----- IF VERIFICANDO STATUS  
             ?>
             <?php
-              
-                if($status === 0) {
+
+                if($status === 0) { //----- IF VERIFICANDO STATUS
             ?>
               <div class="text-center">
                 <h2>Ops! Nenhum resultado foi encontrado </h2>
@@ -140,10 +141,8 @@
                 <div class="d-flex flex-row flex-wrap w-75 ml-auto mr-auto 
                   justify-content-center">
                   <?php  
-                    //script p/ o bd 
+                    //SELECT NA TABELA DE TÓPICOS
                     $sql = "select * from tbltopico";
-
-                    //conexao com o bd
                     $select = mysqli_query($connection, $sql);
 
                     //exibe enquanto exitir dados no array
@@ -157,12 +156,11 @@
                   ?>
                 </div>
                 
-               
                 <p class="mt-2">Ou nos mande uma mensagem na página de contato</p>
 
               </div>
             <?php
-                }
+                } //----- IF VERIFICANDO STATUS
               
             ?>
           </div><!-- CONTAINER PERGUNTAS -->

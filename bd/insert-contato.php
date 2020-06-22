@@ -9,6 +9,7 @@
     $email = $_POST['txtemail'];
     $mensagem = $_POST['txtmensagem'];
 
+    //VALIDAÇÕES
     $nome = filter_input(INPUT_POST, 'txtnome', FILTER_SANITIZE_SPECIAL_CHARS);
     $nome = strtoupper($nome);
     $mensagem = filter_input(INPUT_POST, 'txtmensagem', FILTER_SANITIZE_SPECIAL_CHARS);

@@ -5,12 +5,14 @@
 
   $status = 2;
 
+  //SE EXISTIR RESGATA O ARRAY DE PLANOS
   if(isset($_SESSION['rsPlanos'])){
     $rsPlanos = $_SESSION['rsPlanos'];
     $status = 1;
     session_destroy();
   }
 
+  //SE EXISTIR É PORQUÊ O USUÁRIO NÃO ADICIONOU NENHUMA PESSOA
   if(isset($_SESSION['status'])){
     $status = 0;
     $warning = $_SESSION['status'];
@@ -203,6 +205,7 @@
 
             <?php
 
+              //MATRIZ 
               $faixas = [ 
                 array("faixa" => "0-18","id" => "input1"),  
                 array("faixa" => "19-23","id" => "input2"),
@@ -216,7 +219,7 @@
                 array("faixa" => "59+","id" => "input10"),
               ];
                
-              
+              //LAÇO PARA EXIBIR AS INPUTS
                for($i = 0; $i < count($faixas); $i++){
                  $id = $faixas[$i]["id"];
                  $faixa = $faixas[$i]["faixa"];
@@ -268,20 +271,21 @@
           <div class="d-flex flex-row flex-wrap"> <!-- D-FLEX -->
 
             <?php 
-              if($status === 1){
+              if($status === 1){ //----- IF VERIFICANDO STATUS
                   if(!isset($_SESSION)){
                     session_start();
                   }
 
                   $size = count($rsPlanos);
                 
+                  //LAÇO PARA EXIBIR OS PLANOS
                   for($cont = 0; $cont < $size; $cont++){
                     $id = $rsPlanos[$cont]['id'];
                     $operadora = $rsPlanos[$cont]['operadora'];
                     $modalidade = $rsPlanos[$cont]['modalidade'];
                     $preço = $rsPlanos[$cont]['preço'];
                     $reembolso = $rsPlanos[$cont]['reembolso'];
-                    $_SESSION['preco'] = $preço;
+                    //$_SESSION['preco'] = $preço;
             ?>
             <div class="col-md-4"> <!-- COL -->
 
@@ -437,7 +441,7 @@
             </div> <!-- COL -->
             <?php 
                 }
-              }
+              } //----- IF VERIFICANDO STATUS
             ?>  
           </div> <!-- D-FLEX -->
         </div> <!-- ROW -->
