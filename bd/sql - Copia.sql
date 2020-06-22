@@ -18,53 +18,14 @@ USE `dbmaktub_teste`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tblcliente`
---
-
-DROP TABLE IF EXISTS `tblcliente`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tblcliente` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome_completo` varchar(3000) NOT NULL,
-  `idtipo_cnpj` int(11) NOT NULL,
-  `tipo_contato` varchar(45) NOT NULL,
-  `celular` varchar(16) NOT NULL,
-  `telefone` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idtipo_cnpj` (`idtipo_cnpj`),
-  CONSTRAINT `tblcliente_ibfk_1` FOREIGN KEY (`idtipo_cnpj`) REFERENCES `tbltipo_cnpj` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `tblcliente`
 --
 
 LOCK TABLES `tblcliente` WRITE;
 /*!40000 ALTER TABLE `tblcliente` DISABLE KEYS */;
+INSERT INTO `tblcliente` VALUES (35,'JUAN RIQUELME',3,'WHATSAPP','(011) 11111-1111','(022) 2222-2222'),(36,'LARISSA',1,'WHATSAPP','(011) 11111-1111','(022) 2222-2222'),(37,'LARISSA',1,'WHATSAPP','(011) 11111-1111','(022) 2222-2222'),(38,'LARISSA',1,'WHATSAPP','(011) 11111-1111','(022) 2222-2222'),(39,'LARISSA',1,'WHATSAPP','(011) 11111-1111','(022) 2222-2222'),(40,'LARISSA',1,'WHATSAPP','(011) 11111-1111','(022) 2222-2222'),(41,'LARISSA',1,'WHATSAPP','(011) 11111-1111','(022) 2222-2222'),(42,'GUILHERME PEREIRA',5,'TELEFONE','(011) 11111-1111','(011) 1111-1111'),(43,'GUILHERME PEREIRA',5,'TELEFONE','(011) 11111-1111','(011) 1111-1111'),(44,'JOAO',1,'WHATSAPP','(055) 55555-5555',''),(45,'INGRID SILVA',4,'WHATSAPP','(011) 57892-2222','(011) 5665-4665'),(46,'INGRID SILVA',1,'WHATSAPP','(011) 11111-1111',''),(47,'AMY SAHSAUSDA',3,'TELEFONE','(015) 55555-5555','(011) 4444-4444'),(48,'ASDASDAD',1,'WHATSAPP','(011) 55555-5555',''),(49,'YASMIN PEREIRA',1,'WHATSAPP','(011) 11111-1111','');
 /*!40000 ALTER TABLE `tblcliente` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `tblcliente_plano`
---
-
-DROP TABLE IF EXISTS `tblcliente_plano`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tblcliente_plano` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idcliente` int(11) NOT NULL,
-  `idplano` int(11) NOT NULL,
-  `preço` float DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idplano` (`idplano`),
-  KEY `idcliente` (`idcliente`),
-  CONSTRAINT `tblcliente_plano_ibfk_1` FOREIGN KEY (`idplano`) REFERENCES `tblplano_modalidade` (`id`),
-  CONSTRAINT `tblcliente_plano_ibfk_2` FOREIGN KEY (`idcliente`) REFERENCES `tblcliente` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `tblcliente_plano`
@@ -76,45 +37,14 @@ LOCK TABLES `tblcliente_plano` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tblcontato`
---
-
-DROP TABLE IF EXISTS `tblcontato`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tblcontato` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(3000) NOT NULL,
-  `telefone` varchar(15) NOT NULL,
-  `email` text,
-  `mensagem` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `tblcontato`
 --
 
 LOCK TABLES `tblcontato` WRITE;
 /*!40000 ALTER TABLE `tblcontato` DISABLE KEYS */;
+INSERT INTO `tblcontato` VALUES (1,'S','(1','','                  '),(2,'JERFERSON','(011) 1111-1111','','Esadsdsdsdvsdv&#39;ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd  f ff f  f f ff  f f f f f  f f f f f f f Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda, São Paulo - SP, 06453-017Endereço: Rua Robert Bosch, 544 - Barra Funda'),(3,'INGRID SILVA','(011) 5665-4665','fffff@gmail.com','adasdasd'),(4,'AMY SAHSAUSDA','(011) 1111-1111','','daasdas'),(5,'YASMIN PEREIRA DA SILVA','(011) 1111-1111','estudosenai57@gmail.com','Olá estou testando o meu banco de dados');
 /*!40000 ALTER TABLE `tblcontato` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `tblmodalidade`
---
-
-DROP TABLE IF EXISTS `tblmodalidade`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tblmodalidade` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(3000) NOT NULL,
-  `percentual` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `tblmodalidade`
@@ -127,23 +57,6 @@ INSERT INTO `tblmodalidade` VALUES (1,'Enfermaria',10),(2,'Apartamento',20);
 UNLOCK TABLES;
 
 --
--- Table structure for table `tblplano`
---
-
-DROP TABLE IF EXISTS `tblplano`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tblplano` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `operadora` varchar(3000) NOT NULL,
-  `reembolso` int(11) NOT NULL,
-  `foto` varchar(3000) DEFAULT NULL,
-  `preco_base` float NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `tblplano`
 --
 
@@ -152,25 +65,6 @@ LOCK TABLES `tblplano` WRITE;
 INSERT INTO `tblplano` VALUES (1,'Bradesco Saúde',15,NULL,100),(2,'Notre Dame Intermédica',20,NULL,120),(3,'Unimed',17,NULL,110),(4,'Amil',25,NULL,130),(5,'Sul América',15,NULL,115);
 /*!40000 ALTER TABLE `tblplano` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `tblplano_modalidade`
---
-
-DROP TABLE IF EXISTS `tblplano_modalidade`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tblplano_modalidade` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idplano` int(11) NOT NULL,
-  `idmodalidade` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idplano` (`idplano`),
-  KEY `idmodalidade` (`idmodalidade`),
-  CONSTRAINT `tblplano_modalidade_ibfk_1` FOREIGN KEY (`idplano`) REFERENCES `tblplano` (`id`),
-  CONSTRAINT `tblplano_modalidade_ibfk_2` FOREIGN KEY (`idmodalidade`) REFERENCES `tblmodalidade` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `tblplano_modalidade`
@@ -183,24 +77,6 @@ INSERT INTO `tblplano_modalidade` VALUES (1,1,1),(2,1,2),(3,2,1),(4,2,2),(5,3,1)
 UNLOCK TABLES;
 
 --
--- Table structure for table `tblsuporte`
---
-
-DROP TABLE IF EXISTS `tblsuporte`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tblsuporte` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idtopico` int(11) NOT NULL,
-  `pergunta` varchar(3000) NOT NULL,
-  `resposta` varchar(3000) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idtopico` (`idtopico`),
-  CONSTRAINT `tblsuporte_ibfk_1` FOREIGN KEY (`idtopico`) REFERENCES `tbltopico` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `tblsuporte`
 --
 
@@ -211,20 +87,6 @@ INSERT INTO `tblsuporte` VALUES (1,1,'Quais são as formas de pagamento?','Você
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbltipo_cnpj`
---
-
-DROP TABLE IF EXISTS `tbltipo_cnpj`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tbltipo_cnpj` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sigla` varchar(1000) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `tbltipo_cnpj`
 --
 
@@ -233,20 +95,6 @@ LOCK TABLES `tbltipo_cnpj` WRITE;
 INSERT INTO `tbltipo_cnpj` VALUES (1,'MEI'),(2,'ME'),(3,'LTDA'),(4,'EI'),(5,'EP'),(6,'EIRELI'),(7,'S.A');
 /*!40000 ALTER TABLE `tbltipo_cnpj` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `tbltopico`
---
-
-DROP TABLE IF EXISTS `tbltopico`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tbltopico` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `topico` varchar(3000) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `tbltopico`
@@ -267,4 +115,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-22 11:56:38
+-- Dump completed on 2020-06-22 10:46:02
