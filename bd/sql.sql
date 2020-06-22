@@ -34,7 +34,7 @@ CREATE TABLE `tblcliente` (
   PRIMARY KEY (`id`),
   KEY `idtipo_cnpj` (`idtipo_cnpj`),
   CONSTRAINT `tblcliente_ibfk_1` FOREIGN KEY (`idtipo_cnpj`) REFERENCES `tbltipo_cnpj` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `tblcliente` (
 
 LOCK TABLES `tblcliente` WRITE;
 /*!40000 ALTER TABLE `tblcliente` DISABLE KEYS */;
+INSERT INTO `tblcliente` VALUES (1,'JOICE RIBEIRO',2,'TELEFONE','(011) 11111-1111','');
 /*!40000 ALTER TABLE `tblcliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,14 +57,14 @@ DROP TABLE IF EXISTS `tblcliente_plano`;
 CREATE TABLE `tblcliente_plano` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idcliente` int(11) NOT NULL,
-  `idplano` int(11) NOT NULL,
+  `idplano_modalidade` int(11) NOT NULL,
   `preço` float DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `idplano` (`idplano`),
+  KEY `idplano` (`idplano_modalidade`),
   KEY `idcliente` (`idcliente`),
-  CONSTRAINT `tblcliente_plano_ibfk_1` FOREIGN KEY (`idplano`) REFERENCES `tblplano_modalidade` (`id`),
+  CONSTRAINT `tblcliente_plano_ibfk_1` FOREIGN KEY (`idplano_modalidade`) REFERENCES `tblplano_modalidade` (`id`),
   CONSTRAINT `tblcliente_plano_ibfk_2` FOREIGN KEY (`idcliente`) REFERENCES `tblcliente` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,6 +73,7 @@ CREATE TABLE `tblcliente_plano` (
 
 LOCK TABLES `tblcliente_plano` WRITE;
 /*!40000 ALTER TABLE `tblcliente_plano` DISABLE KEYS */;
+INSERT INTO `tblcliente_plano` VALUES (1,1,5,405.35);
 /*!40000 ALTER TABLE `tblcliente_plano` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,6 +101,31 @@ CREATE TABLE `tblcontato` (
 LOCK TABLES `tblcontato` WRITE;
 /*!40000 ALTER TABLE `tblcontato` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tblcontato` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblfaixa`
+--
+
+DROP TABLE IF EXISTS `tblfaixa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tblfaixa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `faixa` varchar(45) NOT NULL,
+  `percentual` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblfaixa`
+--
+
+LOCK TABLES `tblfaixa` WRITE;
+/*!40000 ALTER TABLE `tblfaixa` DISABLE KEYS */;
+INSERT INTO `tblfaixa` VALUES (1,'0-18',5),(2,'19-23',10),(3,'24-28',15),(4,'29-33',20),(5,'34-38',25),(6,'39-43',35),(7,'44-48',45),(8,'49-53',55),(9,'54-58',65),(10,'59+',75);
+/*!40000 ALTER TABLE `tblfaixa` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -267,4 +294,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-22 11:56:38
+-- Dump completed on 2020-06-22 14:06:38

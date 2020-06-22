@@ -204,29 +204,18 @@
           <form method="POST" name="frmsimulation" action="bd/age-range.php" >
 
             <?php
+              //SCRIPT NA TABELA DE FAIXAS
+              $sql = "SELECT * FROM tblfaixa";
+              $selectFaixa = mysqli_query($connection, $sql);
 
-              //MATRIZ 
-              $faixas = [ 
-                array("faixa" => "0-18","id" => "input1"),  
-                array("faixa" => "19-23","id" => "input2"),
-                array("faixa" => "24-28","id" => "input3"),
-                array("faixa" => "29-33","id" => "input4"),
-                array("faixa" => "34-38","id" => "input5"),
-                array("faixa" => "39-43","id" => "input6"),
-                array("faixa" => "44-48","id" => "input7"),
-                array("faixa" => "49-53","id" => "input8"),
-                array("faixa" => "54-58","id" => "input9"),
-                array("faixa" => "59+","id" => "input10"),
-              ];
-               
               //LAÇO PARA EXIBIR AS INPUTS
-               for($i = 0; $i < count($faixas); $i++){
-                 $id = $faixas[$i]["id"];
-                 $faixa = $faixas[$i]["faixa"];
+               while ($rsFaixas = mysqli_fetch_array($selectFaixa)) {
+                 $id = $rsFaixas["id"];
+                 $faixa = $rsFaixas["faixa"];
             ?>
               <div class="form-check form-check-inline ml-2 mr-2 mt-3">
-                <input class="form-check-input form-number-range" type="number" name=<?=$id?> 
-                id=<?=$id?> value="0">
+                <input class="form-check-input form-number-range" type="number" 
+                name=<?='input'.$id?> id=<?=$id?> value="0">
 
                 <label class="form-check-label" for=<?=$id?> >
                   <?=$faixa?>

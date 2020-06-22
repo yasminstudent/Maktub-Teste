@@ -12,7 +12,7 @@
     $connection = connectionMysql();
 
     //RESGATE O ID DO PLANO PASSADO PELO GET
-    $id = $_GET['id'];
+    $idplano_modalidade = $_GET['id'];
     $preco = $_GET['preco'];
 
     $nome = $_POST['txtnome'];
@@ -39,11 +39,10 @@
       $select = mysqli_query($connection, $sql);
       $rsCliente = mysqli_fetch_array($select);
 
-      
-
       //INSERE O CLIENTE E SUA ESCOLHA
-      $sql = "INSERT INTO tblcliente_plano (idcliente, idplano, preço)
-      VALUES(" .$rsCliente['id'].",".$id.", ".$preco.");" ; 
+      $sql = "INSERT INTO tblcliente_plano 
+      (idcliente, idplano_modalidade, preço)
+      VALUES(" .$rsCliente['id'].",".$idplano_modalidade.", ".$preco.");" ; 
 
       $insert = mysqli_query($connection, $sql);
 

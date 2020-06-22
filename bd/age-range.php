@@ -53,6 +53,24 @@
 
       if($select){//-----------------IF VERIFICANDO SELECT
 
+        //SELECT NO ACRÉSCIMO PERCENTUAL DAS FAIXAS
+        $sql = "SELECT percentual FROM tblfaixa";
+        $selectFaixa = mysqli_query($connection, $sql);
+
+        $rsAcrescimos = [];
+
+        foreach ($selectFaixa as $acrescimo) { //**********FOREACH PERCORRENDO SELECT
+          
+          //ADICIONANDO NO ARRAY, CADA ACRESCIMO
+          if($rsAcrescimos){
+            $rsAcrescimos = [...$rsAcrescimos, $acrescimo['percentual']];
+          }
+          else{
+            $rsAcrescimos = [$acrescimo['percentual']];
+          }
+
+        }//**********FOREACH PERCORRENDO SELECT
+
         foreach($select as $dados){ //-----------------FOREACH PERCORRENDO SELECT
 
           $percentual_modalidade = $dados['percentual'];
@@ -62,19 +80,19 @@
             CALCULA O VALOR DO PREÇO BASE + A PORCENTAGEM ADICIONAL DA MODALIDADE
           */
           $preco_modalidade = (($percentual_modalidade /100)
-          * $preco_base) + $preco_base; 
+          * $preco_base) + $preco_base;
 
           //CHAMADA DA FUNÇÃO QUE CALCULA O PREÇO POR FAIXA
-          $preco1 = precoPorFaixa(5, $preco_modalidade, $faixa1);
-          $preco2 = precoPorFaixa(10, $preco_modalidade, $faixa2);
-          $preco3 = precoPorFaixa(15, $preco_modalidade, $faixa3);
-          $preco4 = precoPorFaixa(20, $preco_modalidade, $faixa4);
-          $preco5 = precoPorFaixa(25, $preco_modalidade, $faixa5);
-          $preco6 = precoPorFaixa(35, $preco_modalidade, $faixa6);
-          $preco7 = precoPorFaixa(45, $preco_modalidade, $faixa7);
-          $preco8 = precoPorFaixa(55, $preco_modalidade, $faixa8);
-          $preco9 = precoPorFaixa(65, $preco_modalidade, $faixa9);
-          $preco10 = precoPorFaixa(75, $preco_modalidade, $faixa10);
+          $preco1 = precoPorFaixa($rsAcrescimos[0], $preco_modalidade, $faixa1);
+          $preco2 = precoPorFaixa($rsAcrescimos[1], $preco_modalidade, $faixa2);
+          $preco3 = precoPorFaixa($rsAcrescimos[2], $preco_modalidade, $faixa3);
+          $preco4 = precoPorFaixa($rsAcrescimos[3], $preco_modalidade, $faixa4);
+          $preco5 = precoPorFaixa($rsAcrescimos[4], $preco_modalidade, $faixa5);
+          $preco6 = precoPorFaixa($rsAcrescimos[5], $preco_modalidade, $faixa6);
+          $preco7 = precoPorFaixa($rsAcrescimos[6], $preco_modalidade, $faixa7);
+          $preco8 = precoPorFaixa($rsAcrescimos[7], $preco_modalidade, $faixa8);
+          $preco9 = precoPorFaixa($rsAcrescimos[8], $preco_modalidade, $faixa9);
+          $preco10 = precoPorFaixa($rsAcrescimos[9], $preco_modalidade, $faixa10);
 
           //ARRAY COM OS PREÇOS
           $precos = array(
