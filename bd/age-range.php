@@ -63,7 +63,7 @@
           
           //ADICIONANDO NO ARRAY, CADA ACRESCIMO
           if($rsAcrescimos){
-            $rsAcrescimos = [$rsAcrescimos, $acrescimo['percentual']];
+            $rsAcrescimos = [...$rsAcrescimos, $acrescimo['percentual']];
           }
           else{
             $rsAcrescimos = [$acrescimo['percentual']];
@@ -125,7 +125,7 @@
     
           //SE O ARRAY TIVER DADOS INSERE SEU VALOR E O NOVO PLANO
           if($rsPlanos){
-            $rsPlanos = [$rsPlanos, $rsPlano];
+            $rsPlanos = [...$rsPlanos, $rsPlano];
           }
           else{
             $rsPlanos = [$rsPlano];

@@ -42,7 +42,7 @@
     
           //SE O ARRAY TIVER DADOS INSERE SEU VALOR E A NOVA DÚVIDA
           if($rsDuvidas){
-            $rsDuvidas = [$rsDuvidas, $rsDuvida];
+            $rsDuvidas = [...$rsDuvidas, $rsDuvida];
           }
           else{
             $rsDuvidas = [$rsDuvida];
