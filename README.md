@@ -14,16 +14,16 @@
 
 -- INFORMAÇÕES SOBRE O TESTE --
 
-1. Objetivo
+1. Objetivo:
 O teste funcionará como uma avaliação de suas habilidades como programadores e sua
 criatividade sobre um sistema até então desconhecido.
 
-2. Requisitos
+2. Requisitos:
 Será necessário que se utilize PHP como base do teste. Qualquer tipo de framework será
 permitido, mas recomendo que usem nativo pois no nosso sistema não é utilizado.
 O banco de dados deverá ser MySQL.
 
-3. Projeto
+3. Projeto:
 Deverá ser feito uma tela inicial contendo um menu com as opções “Home”, “Contato”,
 “Sobre nós” e “Suporte”. A disposição de todas as interfaces fica por criatividade própria.
 Home: Haverá um slide na parte superior, um resumo sobre a empresa abaixo do slide e
